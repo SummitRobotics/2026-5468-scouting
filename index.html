@@ -146,7 +146,11 @@
             querySnapshot.forEach((docSnap) => {
                 const data = docSnap.data();
                 const listItem = document.createElement('li');
-                listItem.textContent = `${data.name}: ${data.submissionCount} match`;
+                if (data.submissionCount == 1) {
+                    listItem.textContent = `${data.name}: ${data.submissionCount} match`;
+                } else {
+                    listItem.textContent = `${data.name}: ${data.submissionCount} matches`;
+                }
                 leaderboardList.appendChild(listItem);
             });
         }, (error) => {
