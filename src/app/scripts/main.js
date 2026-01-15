@@ -102,7 +102,7 @@ document.getElementById('scoutingForm').addEventListener('submit', (event) => {
                 teamNumber = data.alliances.blue.team_keys[2].replace('frc', '');
                 break;
         }
-        window.location.assign(`/form.html?team=${teamNumber}&match=${matchNum}&name=${encodeURIComponent(name)}&seat=${scoutingSeat}&theme=${theme}`);
+        window.location.assign(`/form?team=${teamNumber}&match=${matchNum}&name=${encodeURIComponent(name)}&seat=${scoutingSeat}&theme=${theme}`);
     })
     .catch(error => {
         console.error('Error fetching match data:', error);
