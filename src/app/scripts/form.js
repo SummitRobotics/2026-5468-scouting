@@ -119,19 +119,6 @@ export function main() {
             document.getElementById("defenseTable").style.display = "none";
         });
         
-        document.getElementById('fieldY').addEventListener("click", () => {
-            document.querySelectorAll(".onField").forEach((element) => {
-                element.style.display = "table";
-            });
-            document.getElementById("teleTitle").style.display = "block";
-        });
-
-        document.getElementById('fieldN').addEventListener("click", () => {
-            document.querySelectorAll(".onField").forEach((element) => {
-                element.style.display = "none";
-            });
-            document.getElementById("teleTitle").style.display = "none";
-        });
         
         document.getElementById('leaveY').addEventListener("click", () => {
             document.querySelectorAll(".auto .onField ~ .onField").forEach((element) => {

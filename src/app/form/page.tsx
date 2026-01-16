@@ -20,23 +20,17 @@ export default function page() {
                     <h1 className="headerMain">5468 Scouting Form 2025</h1>
                     <div className="auto">
                         <h2 id="aTitle">Auto Phase</h2>
-                        <table className="tableNormal">
-                            <tbody>
-                                <tr>
-                                    <th colSpan={2}>
-                                        <span className="header">Robot on Field?</span>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="radio" name="field" id="fieldY" value="Yes"/> <label htmlFor="fieldY">Yes</label>
-                                    </td>
-                                    <td>
-                                        <input type="radio" name="field" id="fieldN" value="No" /> <label htmlFor="fieldN">No</label>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <c.boolOptions title="Robot on Field?" YFunc={() => {
+                            document.querySelectorAll(".onField").forEach((element) => {
+                                (element as HTMLElement).style.display = "table";
+                            });
+                            document.getElementById("teleTitle")!.style.display = "block";
+                        }} NFunc={() => {
+                             document.querySelectorAll(".onField").forEach((element) => {
+                                (element as HTMLElement).style.display = "none";
+                            });
+                            document.getElementById("teleTitle")!.style.display = "none";
+                        }} />
                         <table className="tableNormal onField">
                             <tbody>
                                 <tr>
