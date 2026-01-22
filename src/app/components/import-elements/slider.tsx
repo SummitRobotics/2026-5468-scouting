@@ -1,10 +1,14 @@
 import React from 'react';
 
-export default function Slider({title, min, max, defaultVal}: {title: string, min: number, max: number, defaultVal:number}) {
+export default function Slider({title, min, max, defaultVal, classes}: {title: string, min: number, max: number, defaultVal:number, classes?: string}) {
     let titleElement = React.useRef<HTMLDivElement>(null);
     let slider = React.useRef<HTMLInputElement>(null);
+    if (!classes) {
+        classes = ""
+    }
+    
     return (
-        <table className="tableNormal">
+        <table className={`tableNormal ${classes}`}>
             <tbody>
                 <tr>
                     <th colSpan={2}>

@@ -163,8 +163,9 @@ input[type=radio], input[type=checkbox]{
         background: rgb(0,0,0);
         border: 0.3em solid rgb(28,28,28);
         outline: 0.2em solid $chaosGreenDark;
-        width: 1.5em;
-        height: 1.5em;
+        width: 1em;
+        height: 1em; 
+        margin: 5px;
         transition: $animationTransition1;
         cursor: pointer;
 

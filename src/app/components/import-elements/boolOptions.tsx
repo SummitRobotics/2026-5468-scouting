@@ -1,7 +1,11 @@
 
-export default function boolOptions({title, YFunc, NFunc}: {title: string, YFunc: Function, NFunc: Function}) {
+export default function boolOptions({title, YFunc, NFunc, classes}: {title: string, YFunc: Function, NFunc: Function, classes?: string}) {
+    if (!classes) {
+        classes = ""
+    }
+        
     return (
-        <table className="tableNormal">
+        <table className={`tableNormal ${classes}`}>
           <tbody>
                 <tr>
                     <th colSpan={2}>

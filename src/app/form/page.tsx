@@ -74,7 +74,7 @@ export default function page() {
                                 </tr>
                             </tbody>
                         </table>
-                        <c.Slider title="test" min={0} max={10} defaultVal={5} />
+                        <c.Slider title="test" min={0} max={10} defaultVal={5} classes="onField" />
                     </div>
                     
                     <div className="teleop">
