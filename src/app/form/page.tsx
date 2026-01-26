@@ -49,6 +49,12 @@ export default function page() {
                                 (element as HTMLElement).style.display = "none";
                             });
                         }} />
+                        <c.boolOptions title="Did robot score?" YFunc={() => {
+                            console.error("Not implemented");
+                        }} NFunc={() => {
+                            console.error("Not implemented");
+                        }} />
+                        
                     </div>
                     
                     <div className="teleop">
