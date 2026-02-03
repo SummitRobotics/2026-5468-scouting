@@ -1,4 +1,4 @@
-import React, { useRef, RefObject } from 'react'
+import React, { useRef, RefObject } from 'react';
 
 function scoreDisplay({ ref, children }: {ref: RefObject, children: React.ReactNode) {
     return (
@@ -8,12 +8,12 @@ function scoreDisplay({ ref, children }: {ref: RefObject, children: React.ReactN
 
 export default function fuelCounter({ classes }: {classes?: string}) {
     if (!classes) {
-        classes = ""
+        classes = "";
     }
 
     let scoreElement = useRef(null);    
     function changeScore(increment: number) {
-        scoreElement.current!.innerText = scoreElement.current!.innerText + increment
+        scoreElement.current!.innerText = scoreElement.current!.innerText + increment;
     } 
     return (
         <table className={`tableNormal ${classes}`}>
