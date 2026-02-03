@@ -31,50 +31,30 @@ export default function page() {
                             });
                             document.getElementById("teleTitle")!.style.display = "none";
                         }} />
-                        <table className="tableNormal onField">
-                            <tbody>
-                                <tr>
-                                    <th colSpan={2}>
-                                        <span className="header">Did robot leave starting position?</span>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="radio" name="leave" id="leaveY" value="Yes" /> <label htmlFor="leaveY">Yes</label>
-                                    </td>
-                                    <td>
-                                        <input type="radio" name="leave" id="leaveN" value="No" /> <label htmlFor="leaveN">No</label>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <table className="tableNormal onField">
-                            <tbody>
-                                <tr>
-                                    <th colSpan={2}>
-                                        <span className="header">Did robot score?</span>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="radio" name="autoscore" id="aScoreY" value="Yes" /> <label htmlFor="aScoreY">Yes</label>
-                                    </td>
-                                    <td>
-                                        <input type="radio" name="autoscore" id="aScoreN" value="No" /> <label htmlFor="aScoreN">No</label>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <table className="tableNormal onField">
-                            <tbody>
-                                <tr>
-                                    <th colSpan={2}>
-                                        <span className="header">Cycles</span>
-                                    </th>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <c.Slider title="test" min={0} max={10} defaultVal={5} classes="onField" />
+                        <c.boolOptions title="Did robot leave starting position?" YFunc={() => {
+                            document.querySelectorAll(".auto .onField ~ .onField").forEach((element) => {
+                                (element as HTMLElement).style.display = "table";
+                            });
+                        }} NFunc={() => {
+                            document.querySelectorAll(".auto .onField ~ .onField").forEach((element) => {
+                                (element as HTMLElement).style.display = "none";
+                            });
+                        }} />
+                        <c.boolOptions title="Did robot climb?" YFunc={() => {
+                            document.querySelectorAll(".auto .onField ~ .onField").forEach((element) => {
+                                (element as HTMLElement).style.display = "table";
+                            });
+                        }} NFunc={() => {
+                            document.querySelectorAll(".auto .onField ~ .onField").forEach((element) => {
+                                (element as HTMLElement).style.display = "none";
+                            });
+                        }} />
+                        <c.boolOptions title="Did robot score?" YFunc={() => {
+                            console.error("Not implemented");
+                        }} NFunc={() => {
+                            console.error("Not implemented");
+                        }} />
+                        <c.fuelCounter />
                     </div>
                     
                     <div className="teleop">
