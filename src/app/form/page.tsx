@@ -54,7 +54,7 @@ export default function page() {
                         }} NFunc={() => {
                             console.error("Not implemented");
                         }} />
-                        
+                        <c.fuelCounter />
                     </div>
                     
                     <div className="teleop">
