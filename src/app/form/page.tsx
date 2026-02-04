@@ -20,7 +20,6 @@ export default function page() {
                     <h1 className="headerMain">5468 Scouting Form 2025</h1>
                     <div className="auto">
                         <h2 id="aTitle">Auto Phase</h2>
-                        <c.fuelCounter />
                         <c.boolOptions title="Robot on Field?" YFunc={() => {
                             document.querySelectorAll(".onField").forEach((element) => {
                                 (element as HTMLElement).style.display = "table";
@@ -55,6 +54,32 @@ export default function page() {
                         }} NFunc={() => {
                             console.error("Not implemented");
                         }} />
+                        <c.boolOptions title="Did robot pick up fuel?" YFunc={() => {
+                            console.error("Not implemented");
+                        }} NFunc={() => {
+                            console.error("Not implemented");
+                        }} />
+                        <c.fuelCounter />
+                        <table className="tableNormal onField">
+                            <tbody>
+                                <tr>
+                                    <th colSpan={3}>
+                                        <span className="header">Starting Position</span>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="radio" name="startPos" id="startPosS" /> <label htmlFor="startPosS">Left</label>
+                                    </td>
+                                    <td>
+                                        <input type="radio" name="startPos" id="startPos" /> <label htmlFor="startPos">Middle</label>
+                                    </td>
+                                    <td>
+                                        <input type="radio" name="startPos" id="startPosF" /> <label htmlFor="startPosF">Right</label>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                     
                     <div className="teleop">
