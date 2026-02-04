@@ -1,12 +1,19 @@
-import { useRef } from 'react'
-export default function fuelCounter({classes}: {classes?: string}) {
+import React, { useRef, RefObject } from 'react';
+
+function scoreDisplay({ ref, children }: {ref: RefObject, children: React.ReactNode) {
+    return (
+        <span className="header" ref={ ref }>{ children }</span>
+    )
+}
+
+export default function fuelCounter({ classes }: {classes?: string}) {
     if (!classes) {
-        classes = ""
+        classes = "";
     }
 
     let scoreElement = useRef(null);    
     function changeScore(increment: number) {
-        scoreElement.current.innerText = scoreElement.current.innerText + increment
+        scoreElement.current!.innerText = scoreElement.current!.innerText + increment;
     } 
     return (
         <table className={`tableNormal ${classes}`}>
@@ -16,7 +23,7 @@ export default function fuelCounter({classes}: {classes?: string}) {
                         <span className="header">Fuel Count: </span>
                     </th>
                     <th>
-                        <span className="header" ref={scoreElement}>0</span>
+                        <scoreDisplay ref={scoreElement}>0</scoreDisplay>
                     </th>
                 </tr>
                 <tr>
