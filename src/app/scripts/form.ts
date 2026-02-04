@@ -1,3 +1,5 @@
+import firebase from "firebase/compat/app";
+
 export default function initialize() {
     window.addEventListener('load', () => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -7,10 +9,10 @@ export default function initialize() {
         const scoutingSeat = urlParams.get('seat');
         const theme = urlParams.get('theme')
         if (teamNumber) {
-            document.getElementById('team').textContent = `Team: ${teamNumber}`;
+            document.getElementById('team')!.textContent = `Team: ${teamNumber}`;
         }
         if (matchNum) {
-            document.getElementById('matchNumInput').textContent = `Match #: ${matchNum}`;
+            document.getElementById('matchNumInput')!.textContent = `Match #: ${matchNum}`;
         }
         if (scoutingSeat) {
             console.log(`Scouting Seat: ${scoutingSeat}`);
@@ -22,56 +24,56 @@ export default function initialize() {
         if (theme === 'red') {
             document.querySelectorAll('*:not(div)').forEach(function(element) {
                 if (element.nodeName === 'TD'|| element.nodeName === 'TH') {
-                    element.style.border = '1px solid #F88379';
+                    (element as HTMLElement).style.border = '1px solid #F88379';
                 }
                 if (element.id !== 'egTitle' && element.id !== 'teleTitle'&& element.id !=='aTitle') {
-                    element.style.color = '#E34234';
+                    (element as HTMLElement).style.color = '#E34234';
                 } else {
-                    element.style.color = 'white';
+                    (element as HTMLElement).style.color = 'white';
                 }
             });
         } else if (theme === 'blue') {
             document.querySelectorAll('*:not(div)').forEach(function(element) {
                 if (element.nodeName === 'TD'|| element.nodeName === 'TH') {
-                    element.style.borderColor = '#2DA0ED';
+                    (element as HTMLElement).style.borderColor = '#2DA0ED';
                 }
                 if (element.id !== 'egTitle' && element.id !== 'teleTitle'&& element.id !=='aTitle') {
-                    element.style.color = '	RoyalBlue';
+                    (element as HTMLElement).style.color = '	RoyalBlue';
                 } else {
-                    element.style.color = 'white';
+                    (element as HTMLElement).style.color = 'white';
                 }
             });
         } else if (theme === 'pink') {
             document.querySelectorAll('*:not(div):not(div)').forEach(function(element) {
                 if (element.nodeName === 'TD' || element.nodeName === 'TH') {
-                    element.style.borderColor = '#FFA6C9';
+                    (element as HTMLElement).style.borderColor = '#FFA6C9';
                 }
                 if (element.id !== 'egTitle' && element.id !== 'teleTitle'&& element.id !=='aTitle') {
-                    element.style.color = '#F58FBD';
+                    (element as HTMLElement).style.color = '#F58FBD';
                 } else {
-                    element.style.color = 'white';
+                    (element as HTMLElement).style.color = 'white';
                 }
             });
         } else if (theme === 'purple') {
             document.querySelectorAll('*:not(div)').forEach(function(element) {
                 if (element.nodeName === 'TD'|| element.nodeName === 'TH') {
-                    element.style.borderColor = 'orchid';
+                    (element as HTMLElement).style.borderColor = 'orchid';
                 }
                 if (element.id !== 'egTitle' && element.id !== 'teleTitle'&& element.id !=='aTitle') {
-                    element.style.color = 'mediumorchid';
+                    (element as HTMLElement).style.color = 'mediumorchid';
                 } else {
-                    element.style.color = 'white';
+                    (element as HTMLElement).style.color = 'white';
                 }
             });
         } else if (theme === 'gold') {
             document.querySelectorAll('*:not(div)').forEach(function(element) {
                 if (element.nodeName === 'TD'|| element.nodeName === 'TH') {
-                    element.style.borderColor = 'PaleGoldenrod';
+                    (element as HTMLElement).style.borderColor = 'PaleGoldenrod';
                 }
                 if (element.id !== 'egTitle' && element.id !== 'teleTitle' && element.id !=='aTitle') {
-                    element.style.color = 'goldenrod';
+                    (element as HTMLElement).style.color = 'goldenrod';
                 } else {
-                    element.style.color = 'white';
+                    (element as HTMLElement).style.color = 'white';
                 }
             });
         } 
@@ -100,23 +102,19 @@ export function main() {
         pleaseWaitMessage.style.display = "none";
         pleaseWaitMessage.style.color = "blue";
         pleaseWaitMessage.style.textAlign = "center";
-        submitButton.parentNode.insertBefore(pleaseWaitMessage, submitButton);
-        const slider = document.getElementById("test");
-        const output = document.getElementById("lbltst");
-        output.textContent = slider.value;
+        submitButton!.parentNode!.insertBefore(pleaseWaitMessage, submitButton);
 
-        //slider.oninput = 
 
         //TELEOP
 
         // Algae counters
     
-        document.getElementById('defenseY').addEventListener("click", () => {
-            document.getElementById("defenseTable").style.display = "table";
+        document.getElementById('defenseY')!.addEventListener("click", () => {
+            document.getElementById("defenseTable")!.style.display = "table";
         });
 
-        document.getElementById('defenseN').addEventListener("click", () => {
-            document.getElementById("defenseTable").style.display = "none";
+        document.getElementById('defenseN')!.addEventListener("click", () => {
+            document.getElementById("defenseTable")!.style.display = "none";
         });
         
         
@@ -127,10 +125,10 @@ export function main() {
         const teamNumber = urlParams.get('team');
         const scoutingSeat = urlParams.get('seat'); 
 
-        submitButton.addEventListener("click", (event) => {
+        submitButton!.addEventListener("click", (event) => {
             event.preventDefault();
 
-            const rankPoints = document.getElementById("rankPoints").value;
+            const rankPoints = (document.getElementById("rankPoints")! as HTMLInputElement).value;
             console.log(`Rank Points: ${rankPoints}`);
 
             if (rankPoints === "0") {
@@ -149,7 +147,7 @@ export function main() {
 
         function handleFormSubmission() {
 
-            submitButton.disabled = true;
+            (submitButton! as HTMLButtonElement).disabled = true;
 
             pleaseWaitMessage.textContent = getRandomMessage();
             pleaseWaitMessage.style.display = "block";
@@ -159,8 +157,8 @@ export function main() {
             const defense = document.querySelector('input[name="defense"]:checked');
             const speed = document.querySelector('input[name="speed"]:checked');
             const robotOnField = document.querySelector('input[name="field"]:checked');
-            const notes = document.getElementById("notes").value;
-            const rankPoints = document.getElementById("rankPoints").value;
+            const notes = (document.getElementById("notes")! as HTMLInputElement).value;
+            const rankPoints = (document.getElementById("rankPoints")! as HTMLInputElement).value;
 
             // Generate current date and time
             const now = new Date();
@@ -185,7 +183,7 @@ export function main() {
             }
             console.log(defenseAssess);
 
-            incrementLeaderboard(scoutName);
+            incrementLeaderboard(scoutName!);
 
             const data = {   // Data to pass to forms
                 timestamp: formattedDate, 
@@ -193,16 +191,16 @@ export function main() {
                 matchNum: matchNum,
                 scoutingSeat: scoutingSeat,
                 teamNumber: teamNumber,
-                robotOnField: robotOnField ? robotOnField.nextElementSibling.textContent : null,
-                driverSkill: driverSkill ? driverSkill.nextElementSibling.textContent : null,
-                defense: defense ? defense.nextElementSibling.textContent : null,
+                robotOnField: robotOnField ? robotOnField!.nextElementSibling!.textContent : null,
+                driverSkill: driverSkill ? driverSkill!.nextElementSibling!.textContent : null,
+                defense: defense ? defense.nextElementSibling!.textContent : null,
                 defenseAssess: defenseAssess.join(', '),
-                speed: speed ? speed.nextElementSibling.textContent : null,
+                speed: speed ? speed.nextElementSibling!.textContent : null,
                 assessments: assessments.join(', '),
                 rankPoints: rankPoints,
                 notes: notes,
                 total: total
-            };
+            } as Record<string, any>;
             const queryString = new URLSearchParams(data).toString();
 
             fetch(`https://script.google.com/macros/s/AKfycbwaeAWUAK3oIMb1jt1qXzEfxNVKcXMstkbm4Y6n1iZc3CJtqOZTdyJKNTKkDSe0r13Big/exec?${queryString}`, {
@@ -220,13 +218,13 @@ export function main() {
             .catch((error) => {
                 console.error('Error:', error);
                 // Re-enable the submit button if an error occurs
-                submitButton.disabled = false;
+                (submitButton! as HTMLButtonElement).disabled = false;
                 pleaseWaitMessage.textContent = 'An error occurred. Please try again.';
                 pleaseWaitMessage.style.color = 'red';
             });
         }
 
-        function showConfirmationPopup(onConfirm) {
+        function showConfirmationPopup(onConfirm: Function) {
             // Create the modal container
             const modal = document.createElement("div");
             modal.style.position = "fixed";
@@ -307,7 +305,7 @@ export function main() {
             return messages[0].text;
         }
 
-        async function incrementLeaderboard(scoutName) {
+        async function incrementLeaderboard(scoutName: string) {
             try {
                 const nameDocRef = db.collection("leaderboard_submissions").doc(scoutName);
 

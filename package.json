@@ -26,5 +26,10 @@
     "eslint-config-next": "16.1.2",
     "tailwindcss": "^4",
     "typescript": "5.9.3"
+  },
+  "electronWebpack": {
+    "whiteListedModules": [
+      "firebase"
+    ]   
   }
 }

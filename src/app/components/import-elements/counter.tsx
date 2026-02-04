@@ -1,29 +1,36 @@
-import React, { useRef, RefObject } from 'react';
-
-function scoreDisplay({ ref, children }: {ref: RefObject, children: React.ReactNode) {
-    return (
-        <span className="header" ref={ ref }>{ children }</span>
-    )
+import React, { useRef, Ref, ReactElement } from 'react';
+function scoreDisplay(ref: Ref<HTMLElement>, score: number, id?: string) {
+    if (id) {
+        return (
+            <span className="header text-4xl" ref={ ref } id={id}>{ score }</span>
+        )
+    } else {
+        return (
+            <span className="header text-4xl" ref={ ref }>{ score }</span>
+        )
+    }
 }
 
-export default function fuelCounter({ classes }: {classes?: string}) {
+
+export default function fuelCounter({ classes, id }: {classes?: string, id?: string}) {
+    
     if (!classes) {
         classes = "";
     }
 
-    let scoreElement = useRef(null);    
+    let scoreElement = useRef(<span /> as unknown as HTMLSpanElement);    
     function changeScore(increment: number) {
-        scoreElement.current!.innerText = scoreElement.current!.innerText + increment;
+        scoreElement.current.textContent = String(Number(scoreElement.current.textContent) + increment);
     } 
     return (
         <table className={`tableNormal ${classes}`}>
           <tbody>
                 <tr>
-                    <th colSpan={3}>
+                    <th colSpan={1}>
                         <span className="header">Fuel Count: </span>
                     </th>
                     <th>
-                        <scoreDisplay ref={scoreElement}>0</scoreDisplay>
+                        {scoreDisplay(scoreElement,0)}
                     </th>
                 </tr>
                 <tr>
@@ -33,6 +40,8 @@ export default function fuelCounter({ classes }: {classes?: string}) {
                     <td>
                         <button className="Jbutton" onClick={() => {changeScore(1)}}>+1</button>
                     </td>
+                </tr>
+                <tr>
                     <td>
                         <button className="Jbutton" onClick={() => {changeScore(5)}}>+5</button>
                     </td>

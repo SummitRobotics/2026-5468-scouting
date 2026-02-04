@@ -1,9 +1,9 @@
 "use client";
 import {useEffect} from "react";
+import Script from 'next/script'
+import initialize from "./scripts/main"
 
-import initialize from "./scripts/main.js"
-
-export default function Home() {
+export default function page() {
   useEffect(() => {
     initialize();
   }, []);

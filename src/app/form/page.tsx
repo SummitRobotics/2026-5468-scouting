@@ -20,6 +20,7 @@ export default function page() {
                     <h1 className="headerMain">5468 Scouting Form 2025</h1>
                     <div className="auto">
                         <h2 id="aTitle">Auto Phase</h2>
+                        <c.fuelCounter />
                         <c.boolOptions title="Robot on Field?" YFunc={() => {
                             document.querySelectorAll(".onField").forEach((element) => {
                                 (element as HTMLElement).style.display = "table";
@@ -54,15 +55,17 @@ export default function page() {
                         }} NFunc={() => {
                             console.error("Not implemented");
                         }} />
-                        <c.fuelCounter />
                     </div>
                     
                     <div className="teleop">
                         <h2 id="teleTitle">Teleop</h2>
+                        <c.fuelCounter />
                     </div>
+                    
                     
                     <div className="endgame">
                         <h2 id="egTitle" className="onField">End Game</h2>
+                        <c.fuelCounter />
                     <table className="tableNormal leftAlign onField">
                         <tbody>
                             <tr>
