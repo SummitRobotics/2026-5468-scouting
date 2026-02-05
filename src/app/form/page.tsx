@@ -121,7 +121,7 @@ export default function page() {
                         <table className="tableNormal onField">
                             <tbody>
                                 <tr>
-                                    <th colSpan={3}>
+                                    <th colSpan={4}>
                                         <span className="header">Climb Level</span>
                                     </th>
                                 </tr>
