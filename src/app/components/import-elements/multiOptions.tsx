@@ -15,7 +15,7 @@ export default function multiOptions({title, options, classes}: {title: string, 
                     </th>
                 </tr>
                 <tr>
-                    {optionsElements}
+                    { optionsElements }
                 </tr>
           </tbody>
       </table>

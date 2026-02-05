@@ -31,7 +31,7 @@ export default function page() {
                             });
                             document.getElementById("teleTitle")!.style.display = "none";
                         }} />
-                        <c.boolOptions title="Did robot leave starting position?" YFunc={() => {
+                        <c.boolOptions title="Did robot leave starting position?" classes="onField" YFunc={() => {
                             document.querySelectorAll(".auto .onField ~ .onField").forEach((element) => {
                                 (element as HTMLElement).style.display = "table";
                             });
@@ -40,7 +40,7 @@ export default function page() {
                                 (element as HTMLElement).style.display = "none";
                             });
                         }} />
-                        <c.boolOptions title="Did robot climb?" YFunc={() => {
+                        <c.boolOptions title="Did robot climb?" classes="onField" YFunc={() => {
                             document.querySelectorAll(".auto .onField ~ .onField").forEach((element) => {
                                 (element as HTMLElement).style.display = "table";
                             });
@@ -49,10 +49,10 @@ export default function page() {
                                 (element as HTMLElement).style.display = "none";
                             });
                         }} />
-                        <c.boolOptions title="Did robot visit depot?"  />
-                        <c.boolOptions title="Did robot visit outpost?"  />
-                        <c.boolOptions title="Did robot pick up fuel?"  />
-                        <c.fuelCounter />
+                        <c.boolOptions title="Did robot visit depot?"  classes="onField" />
+                        <c.boolOptions title="Did robot visit outpost?" classes="onField" />
+                        <c.boolOptions title="Did robot pick up fuel?" classes="onField" />
+                        <c.fuelCounter classes="onField" />
                         <table className="tableNormal onField">
                             <tbody>
                                 <tr>
@@ -75,7 +75,7 @@ export default function page() {
                         </table>
                     </div>
                     
-                    <div className="teleop">
+                    <div className="teleop onField">
                         <h2 id="teleTitle">Teleop</h2>
                         <table className="tableNormal leftAlign onField">
                         <tbody>
@@ -117,7 +117,7 @@ export default function page() {
                     
                     <div className="endgame">
                         <h2 id="egTitle" className="onField">End Game</h2>
-                        <c.fuelCounter />
+                        <c.fuelCounter classes="onField" />
                         <table className="tableNormal onField">
                             <tbody>
                                 <tr>
@@ -313,18 +313,6 @@ export default function page() {
                                     <td>
                                         <textarea id="notes"></textarea>
                                     </td>             
-                                </tr>
-                            </tbody>
-                        </table>
-                        <table className="tableNormal onField">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <input type="radio" name="coopertition" id="coopY" /> <label htmlFor="coopY">Yes</label>
-                                    </td>
-                                    <td>
-                                        <input type="radio" name="coopertition" id="coopN" /> <label htmlFor="coopN">No</label>
-                                    </td>
                                 </tr>
                             </tbody>
                         </table>
