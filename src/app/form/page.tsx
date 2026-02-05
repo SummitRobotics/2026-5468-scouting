@@ -17,7 +17,7 @@ export default function page() {
             </div>
             <div id="container">
                 <div className="containerInner">
-                    <h1 className="headerMain">5468 Scouting Form 2025</h1>
+                    <h1 className="headerMain">5468 Scouting Form 2026</h1>
                     <div className="auto">
                         <h2 id="aTitle">Auto Phase</h2>
                         <c.boolOptions title="Robot on Field?" YFunc={() => {
@@ -49,7 +49,6 @@ export default function page() {
                                 (element as HTMLElement).style.display = "none";
                             });
                         }} />
-                        <c.boolOptions title="Did robot score?" />
                         <c.boolOptions title="Did robot visit depot?"  />
                         <c.boolOptions title="Did robot visit outpost?"  />
                         <c.boolOptions title="Did robot pick up fuel?"  />
@@ -127,6 +126,9 @@ export default function page() {
                                     </th>
                                 </tr>
                                 <tr>
+                                    <td>
+                                        <input type="radio" name="climb" id="climbNone" /> <label htmlFor="climbNone">No climb</label>
+                                    </td>
                                     <td>
                                         <input type="radio" name="climb" id="climb1" /> <label htmlFor="climb1">1</label>
                                     </td>
