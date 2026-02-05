@@ -1,5 +1,5 @@
 
-export default function boolOptions({title, YFunc, NFunc, classes}: {title: string, YFunc: Function, NFunc: Function, classes?: string}) {
+export default function boolOptions({title, YFunc, NFunc, classes}: {title: string, YFunc?: Function, NFunc?: Function, classes?: string}) {
     if (!classes) {
         classes = ""
     }
@@ -15,12 +15,16 @@ export default function boolOptions({title, YFunc, NFunc, classes}: {title: stri
                 <tr>
                     <td>
                         <input type="radio" name={title} id={`${title}Y`} value="Yes" onClick={() => {
-                            YFunc()
+                            if (YFunc) {
+                                YFunc()
+                            }
                         }}/> <label htmlFor={`${title}Y`}>Yes</label>
                     </td>
                     <td>
                         <input type="radio" name={title} id={`${title}N`} value="No" onClick={() => {
-                            NFunc()
+                            if (NFunc) {
+                                NFunc()
+                            }
                         }}/> <label htmlFor={`${title}N`}>No</label>
                     </td>
                 </tr>

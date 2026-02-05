@@ -12,12 +12,17 @@ function scoreDisplay(ref: Ref<HTMLElement>, score: number, id?: string) {
 }
 
 
-export default function fuelCounter({ classes, id }: {classes?: string, id?: string}) {
+export default function fuelCounter({ classes, id, outField }: {classes?: string, id?: string, outField?: boolean}) {
     
     if (!classes) {
         classes = "";
     }
-
+    let title: string;
+    if (!outField) {
+        title = "Fuel Count: ";
+    } else {
+        title = "Shot out of field:";
+    }
     let scoreElement = useRef(<span /> as unknown as HTMLSpanElement);    
     function changeScore(increment: number) {
         scoreElement.current.textContent = String(Number(scoreElement.current.textContent) + increment);
@@ -27,7 +32,7 @@ export default function fuelCounter({ classes, id }: {classes?: string, id?: str
           <tbody>
                 <tr>
                     <th colSpan={1}>
-                        <span className="header">Fuel Count: </span>
+                        <span className="header">{ title }</span>
                     </th>
                     <th>
                         {scoreDisplay(scoreElement,0)}
