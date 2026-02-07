@@ -27,7 +27,7 @@ export default function page() {
                             <strong>Match #:</strong>
                         </td>
                         <td>
-                            <input type="hidden" id="eventKey" value="2025wass" /> 
+                            <input type="hidden" id="eventKey" value="2025wass" />
                             <select id="matchNum">
 
                             </select>
@@ -67,7 +67,7 @@ export default function page() {
                     </tr>
                   </tbody>
                 </table>
-                <button type="submit" className="Jbutton">Go to Scouting Form</button>
+                <button type="submit" className="inline-block rounded-full py-2 px-4 text-black border-1 border-chaos-300 bg-chaos">Go to Scouting Form</button>
             </form>
             <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
             <div>
