@@ -2,18 +2,19 @@ import firebase from "firebase/compat/app";
 import { doc, getFirestore, setDoc } from "firebase/firestore"
 
 export default function initialize() {
-    window.addEventListener('load', () => {
+    // window.addEventListener('load', () => {
         const urlParams = new URLSearchParams(window.location.search);
         const teamNumber = urlParams.get('team');
         const matchNum = urlParams.get('match');
         const scoutName = urlParams.get('name');
         const scoutingSeat = urlParams.get('seat');
         const theme = urlParams.get('theme')
+
         if (teamNumber) {
-            document.getElementById('team')!.textContent = `Team: ${teamNumber}`;
+            document.getElementById('teamNumber')!.textContent = teamNumber;
         }
         if (matchNum) {
-            document.getElementById('matchNumInput')!.textContent = `Match #: ${matchNum}`;
+            document.getElementById('matchNumber')!.textContent = matchNum;
         }
         if (scoutingSeat) {
             console.log(`Scouting Seat: ${scoutingSeat}`);
@@ -77,8 +78,8 @@ export default function initialize() {
                     (element as HTMLElement).style.color = 'white';
                 }
             });
-        } 
-    });
+        }
+    // });
 }
 
 export function main() {
@@ -95,7 +96,7 @@ export function main() {
     };
 
     const app = firebase.initializeApp(firebaseConfig);
-    const db = getFirestore(app); 
+    const db = getFirestore(app);
 
     const submitButton = document.getElementById("submit");
     const pleaseWaitMessage = document.createElement("div");
@@ -116,14 +117,14 @@ export function main() {
     document.getElementById('defenseN')!.addEventListener("click", () => {
         document.getElementById("defenseTable")!.style.display = "none";
     });
-    
-    
+
+
     // Read URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     const scoutName = urlParams.get('name');
     const matchNum = urlParams.get('match');
     const teamNumber = urlParams.get('team');
-    const scoutingSeat = urlParams.get('seat'); 
+    const scoutingSeat = urlParams.get('seat');
 
     submitButton!.addEventListener("click", (event) => {
         event.preventDefault();
@@ -186,7 +187,7 @@ export function main() {
         incrementLeaderboard(scoutName!);
 
         const data = {   // Data to pass to forms
-            timestamp: formattedDate, 
+            timestamp: formattedDate,
             scoutName: scoutName,
             matchNum: matchNum,
             scoutingSeat: scoutingSeat,
@@ -257,21 +258,21 @@ export function main() {
         message.style.marginBottom = "20px";
         modalContent.appendChild(message);
 
-        
+
         const yesButton = document.createElement("button");
         yesButton.textContent = "Yes";
-        yesButton.className = "Jbutton"; 
+        yesButton.className = "Jbutton";
         yesButton.style.margin = "10px";
         yesButton.addEventListener("click", () => {
-            modal.remove(); 
+            modal.remove();
             onConfirm();
         });
         modalContent.appendChild(yesButton);
 
-        
+
         const noButton = document.createElement("button");
         noButton.textContent = "No";
-        noButton.className = "Jbutton"; 
+        noButton.className = "Jbutton";
         noButton.style.margin = "10px";
         noButton.addEventListener("click", () => {
             modal.remove(); // Remove the modal

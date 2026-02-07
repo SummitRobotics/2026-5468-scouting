@@ -1,7 +1,8 @@
 "use client";
 import {useEffect} from "react";
-import initialize, {main} from "../scripts/form";
+import initialize, {main} from "./form";
 import * as c from "../components"
+
 export default function page() {
     useEffect(() => {
         initialize();
@@ -9,15 +10,19 @@ export default function page() {
     }, []);
     return (
         <>
-            <div id="top-bar-container">
+            {/* <div id="top-bar-container">
                 <div id="top-bar">
                     <span id="matchNumInput" className="relative left-1">Match #</span>
                     <span id="team" className="fixed right-1">Team:</span>
                 </div>
-            </div>
+            </div> */}
             <div id="container">
                 <div className="containerInner">
-                    <h1 className="headerMain">5468 Scouting Form 2026</h1>
+                    <h1 className="headerMain">Match Scouting</h1>
+                    <div className="text-center">
+                        <p>Match #<span id="matchNumber"></span></p>
+                        <p>Team: <span id="teamNumber"></span></p>
+                    </div>
                     <div className="auto">
                         <h2 id="aTitle">Auto Phase</h2>
                         <c.boolOptions title="Robot on Field?" YFunc={() => {
@@ -74,7 +79,7 @@ export default function page() {
                             </tbody>
                         </table>
                     </div>
-                    
+
                     <div className="teleop onField">
                         <h2 id="teleTitle">Teleop</h2>
                         <table className="tableNormal leftAlign onField">
@@ -113,8 +118,8 @@ export default function page() {
                         <c.boolOptions title="Can robot navigate bump?"  />
                         <c.boolOptions title="Can robot navigate trench?"  />
                     </div>
-                    
-                    
+
+
                     <div className="endgame">
                         <h2 id="egTitle" className="onField">End Game</h2>
                         <c.fuelCounter classes="onField" />
@@ -312,7 +317,7 @@ export default function page() {
                                 <tr>
                                     <td>
                                         <textarea id="notes"></textarea>
-                                    </td>             
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -336,7 +341,7 @@ export default function page() {
                                 </tr>
                             </tbody>
                         </table>
-                            
+
                         <div className="centerWrap">
                             <div id="pleaseWaitMessage" style={{display: "none"}} className="text-blue-900 text-center">Please wait...</div>
                             <button id="submit" className="Jbutton">Submit</button>
