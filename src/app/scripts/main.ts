@@ -1,7 +1,7 @@
 import firebase from "firebase/compat/app";
 import { collection, getFirestore, query, orderBy, limit, onSnapshot } from "firebase/firestore"
 
-const apiKey = 'zu21V7xO4Yu9ny1QVq7HsrYIAEG0p015yi747MxvjUHw9Hk7de60VPxIRBA0gYRN'; 
+const apiKey = 'zu21V7xO4Yu9ny1QVq7HsrYIAEG0p015yi747MxvjUHw9Hk7de60VPxIRBA0gYRN';
 export default function initialize() {
     console.log("h");
 
@@ -16,7 +16,7 @@ export default function initialize() {
     };
 
     const app = firebase.initializeApp(firebaseConfig);
-    const db = getFirestore(app); 
+    const db = getFirestore(app);
     const eventKey = (document.getElementById('eventKey') as HTMLInputElement).value;
     const matchNumSelect = document.getElementById('matchNum');
 
@@ -33,7 +33,7 @@ export default function initialize() {
             .sort((a, b) => a.match_number - b.match_number) // Sort matches by match number
             .forEach(match => {
                 const option = document.createElement('option');
-                option.value = match.match_number; 
+                option.value = match.match_number;
                 option.textContent = match.match_number;
                 matchNumSelect!.appendChild(option);
             });
@@ -43,11 +43,11 @@ export default function initialize() {
     });
 
 
-    const leaderboardRef = collection(db, "leaderboard_submissions"); 
+    const leaderboardRef = collection(db, "leaderboard_submissions");
     const q = query(leaderboardRef, orderBy("submissionCount", "desc"), limit(3));
     const leaderboardList = document.getElementById("leaderboardList");
-    onSnapshot(q,(querySnapshot) => { 
-        leaderboardList!.innerHTML = ''; 
+    onSnapshot(q,(querySnapshot) => {
+        leaderboardList!.innerHTML = '';
         if (querySnapshot.empty) {
             leaderboardList!.innerHTML = '<li>No submissions yet!</li>';
             return;
@@ -104,7 +104,7 @@ export default function initialize() {
                     teamNumber = data.alliances.blue.team_keys[2].replace('frc', '');
                     break;
             }
-            window.location.assign(`/form?team=${teamNumber}&match=${matchNum}&name=${encodeURIComponent(name)}&seat=${scoutingSeat}&theme=${theme}`);
+            window.location.assign(`/matchScouting?team=${teamNumber}&match=${matchNum}&name=${encodeURIComponent(name)}&seat=${scoutingSeat}&theme=${theme}`);
         })
         .catch(error => {
             console.error('Error fetching match data:', error);
