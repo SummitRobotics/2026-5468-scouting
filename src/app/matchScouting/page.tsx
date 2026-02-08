@@ -10,12 +10,6 @@ export default function page() {
     }, []);
     return (
         <>
-            {/* <div id="top-bar-container">
-                <div id="top-bar">
-                    <span id="matchNumInput" className="relative left-1">Match #</span>
-                    <span id="team" className="fixed right-1">Team:</span>
-                </div>
-            </div> */}
             <div id="container">
                 <div className="containerInner">
                     <h1 className="headerMain">Match Scouting</h1>
@@ -45,268 +39,81 @@ export default function page() {
                                 (element as HTMLElement).style.display = "none";
                             });
                         }} />
-                        <c.boolOptions title="Did robot climb?" classes="onField" YFunc={() => {
-                            document.querySelectorAll(".auto .onField ~ .onField").forEach((element) => {
-                                (element as HTMLElement).style.display = "table";
-                            });
-                        }} NFunc={() => {
-                            document.querySelectorAll(".auto .onField ~ .onField").forEach((element) => {
-                                (element as HTMLElement).style.display = "none";
-                            });
-                        }} />
+                        <c.multiOptions title="Starting Position" options={[
+                            {return: "left", option:"Left"}, 
+                            {return: "middle", option:"Middle"}, 
+                            {return: "right", option:"Right"}
+                        ]} classes="onField" />
+                        <c.boolOptions title="Did robot climb?" classes="onField" />
                         <c.boolOptions title="Did robot visit depot?"  classes="onField" />
                         <c.boolOptions title="Did robot visit outpost?" classes="onField" />
                         <c.boolOptions title="Did robot pick up fuel?" classes="onField" />
                         <c.fuelCounter classes="onField" />
-                        <table className="tableNormal onField">
-                            <tbody>
-                                <tr>
-                                    <th colSpan={3}>
-                                        <span className="header">Climb Location</span>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="radio" name="startPos" id="startPosS" /> <label htmlFor="startPosS">Left</label>
-                                    </td>
-                                    <td>
-                                        <input type="radio" name="startPos" id="startPos" /> <label htmlFor="startPos">Middle</label>
-                                    </td>
-                                    <td>
-                                        <input type="radio" name="startPos" id="startPosF" /> <label htmlFor="startPosF">Right</label>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <c.multiOptions title="Climb Location" options={[
+                            {return: "left", option:"Left"}, 
+                            {return: "middle", option:"Middle"}, 
+                            {return: "right", option:"Right"}
+                        ]} classes="onField" />
                     </div>
 
                     <div className="teleop onField">
                         <h2 id="teleTitle">Teleop</h2>
-                        <table className="tableNormal leftAlign onField">
-                        <tbody>
-                            <tr>
-                                <th>
-                                    <span className="header">Did robot snowblow from: </span>
-                                </th>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <input type="checkbox" name="snowblow" id="snowblow2" /> <label htmlFor="snowblow2">Zone 2 to Zone 1</label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" name="snowblow" id="snowblow3" /> <label htmlFor="snowblow3">Zone 3 to Zone 1</label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" name="snowblow" id="snowblow4" /> <label htmlFor="snowblow4">Zone 4 to Zone 1</label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" name="snowblow" id="snowblowNone" /> <label htmlFor="snowblowNone">Robot did not snowblow</label>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                        <c.multiOptions title="Did robot snowblow from:" options={[
+                            {return: 2, option:"Zone 2 to Zone 1"}, 
+                            {return: 3, option:"Zone 3 to Zone 1"}, 
+                            {return: 4, option:"Zone 4 to Zone 1"}, 
+                            {return: 0, option:"Robot did not snowblow"}
+                        ]} classes="leftAlign onField" vertical={true} />
                         <c.fuelCounter />
-                        <c.fuelCounter outField={true} />
+                         <c.boolOptions title="Did robot shoot out of field?" />
                         <c.boolOptions title="Can robot shoot while moving?"  />
                         <c.boolOptions title="Can robot navigate bump?"  />
                         <c.boolOptions title="Can robot navigate trench?"  />
                     </div>
 
-
                     <div className="endgame">
                         <h2 id="egTitle" className="onField">End Game</h2>
                         <c.fuelCounter classes="onField" />
-                        <table className="tableNormal onField">
-                            <tbody>
-                                <tr>
-                                    <th colSpan={4}>
-                                        <span className="header">Climb Level</span>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="radio" name="climb" id="climbNone" /> <label htmlFor="climbNone">No climb</label>
-                                    </td>
-                                    <td>
-                                        <input type="radio" name="climb" id="climb1" /> <label htmlFor="climb1">1</label>
-                                    </td>
-                                    <td>
-                                        <input type="radio" name="climb" id="climb2" /> <label htmlFor="climb2">2</label>
-                                    </td>
-                                    <td>
-                                        <input type="radio" name="climb" id="climb3" /> <label htmlFor="climb3">3</label>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <table className="tableNormal leftAlign onField">
-                            <tbody>
-                                <tr>
-                                    <th>
-                                        <span className="header">Driver Skill</span>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="radio" name="skill" id="skillVeryEffect" /> <label htmlFor="skillVeryEffect">Very Effective</label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="radio" name="skill" id="skillEffect" /> <label htmlFor="skillEffect">Effective</label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="radio" name="skill" id="skillAver" /> <label htmlFor="skillAver">Average</label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="radio" name="skill" id="skillNoEffect" /> <label htmlFor="skillNoEffect">Not Effective</label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="radio" name="skill" id="skillNoSure" /> <label htmlFor="skillNoSure">Not Sure</label>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <table className="tableNormal onField">
-                            <tbody>
-                                <tr>
-                                    <th colSpan={4}>
-                                        <span className="header">Played Defense</span>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <td colSpan={2} className="w-1/2">
-                                        <input type="radio" name="defense" id="defenseY" /> <label htmlFor="defenseY">Yes</label>
-                                    </td>
-                                    <td colSpan={2}>
-                                        <input type="radio" name="defense" id="defenseN" /> <label htmlFor="defenseN">No</label>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <table id="defenseTable" className="tableNormal leftAlign" style={{display: "none"}}>
-                            <tbody>
-                                <tr>
-                                    <th>
-                                        <span className="header">Defensive Skills</span>
-                                    </th>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" name="dSkill" id="Blocked coral station" /> <label htmlFor="Blocked coral station">Blocked access to coral station</label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" name="dSkill" id="Slowed good team" /> <label htmlFor="Slowed good team">Slowed high scoring team</label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="text-wrap">
-                                        <input type="checkbox" name="dSkill" id="Ineffective" /> <label htmlFor="Ineffective">Not effective at blocking station or slowing team down</label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" name="dSkill" id="Broke down" /> <label htmlFor="Broke down">Broke down</label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" name="dSkill" id="Avoided penalties" /> <label htmlFor="Avoided penalties">Avoided penalties</label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" name="dSkill" id="Took penalties" /> <label htmlFor="Took penalties">Lots of penalties</label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" name="dSkill" id="Stuck: Algae" /> <label htmlFor="Stuck: Algae">Stuck on algae</label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" name="dSkill" id="Stuck: Coral" /> <label htmlFor="Stuck: Coral">Stuck on coral</label>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <table className="tableNormal onField">
-                            <tbody>
-                                <tr>
-                                    <th colSpan={3}>
-                                        <span className="header">Speed</span>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="radio" name="speed" id="speedS" /> <label htmlFor="speedS">Slow</label>
-                                    </td>
-                                    <td>
-                                        <input type="radio" name="speed" id="speed" /> <label htmlFor="speed">Medium</label>
-                                    </td>
-                                    <td>
-                                        <input type="radio" name="speed" id="speedF" /> <label htmlFor="speedF">Fast</label>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <table className="tableNormal leftAlign onField">
-                            <tbody>
-                                <tr>
-                                    <th>
-                                        <span className="header">Robot Assessment</span>
-                                    </th>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" name="assess" id="assessDie" /> <label htmlFor="assessDie">Died / Immobile</label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" name="assess" id="assessTippy" /> <label htmlFor="assessTippy">Tippy (almost tipped over)</label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" name="assess" id="assessTipped" /> <label htmlFor="assessTipped">Tipped over</label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" name="assess" id="assessTrap" /> <label htmlFor="assessTrap">Had game pieces trapped in robot</label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" name="assess" id="assessFlimsy" /> <label htmlFor="assessFlimsy">Looks flimsy</label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" name="assess" id="assessSolid" /> <label htmlFor="assessSolid">Solidly built</label>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <c.multiOptions title="Climb Level" options={[ 
+                            {return: 1, option:"1"}, 
+                            {return: 2, option:"2"}, 
+                            {return: 3, option:"3"},
+                            {return: 0, option:"No climb"}
+                        ]} classes="onField" vertical={false} />
+                        <c.multiOptions title="Driver Skill" options={[ 
+                            {return: 4, option:"Very Effective"}, 
+                            {return: 3, option:"Effective"}, 
+                            {return: 2, option:"Average"},
+                            {return: 1, option:"Not Effective"},
+                            {return: 0, option:"Not Sure"}
+                        ]} classes="leftAlign onField" vertical={true} />
+                        <c.boolOptions title="Played Defense" classes="onField" YFunc={() => {
+                            document.getElementById("defenseTable")!.style.display = "table";
+                        }} NFunc={() => {
+                            document.getElementById("defenseTable")!.style.display = "none";
+                        }}/>
+                        <c.multiOptions title="Defensive Skills" options={[
+                            {return: "Blocked coral station", option: "Blocked access to coral station"},
+                            {return: "Slowed good team", option: "Slowed high scoring team"},
+                            {return: "Ineffective", option: "Not effective at blocking station or slowing team down"},
+                            {return: "Broke down", option: "Broke down"},
+                            {return: "Avoided penalties", option: "Avoided penalties"},
+                            {return: "Took penalties", option: "Lots of penalties"},
+                            {return: "Stuck: Algae", option: "Stuck on algae"},
+                            {return: "Stuck: Coral", option: "Stuck on coral"}
+                        ]} id="defenseTable" classes="leftAlign onField" vertical={true} multiSelect={true} />
+                        <c.multiOptions title="Speed" options={[
+                            {return: "slow", option:"Slow"}, 
+                            {return: "medium", option:"Medium"}, 
+                            {return: "fast", option:"Fast"}
+                        ]} classes="onField" />
+                        <c.multiOptions title="Robot Assessment" options={[
+                            {return: "died", option:"Died / Immobile"}, 
+                            {return: "tipped", option:"Tipped over"}, 
+                            {return: "spilled", option:"Spilled fuel on bump"},
+                            {return: "stuck: fuel", option:"Stuck on fuel"}, 
+                            {return: "stuck: bump", option:"Stuck on bump"}
+                        ]} classes="leftAlign onField" vertical={true} multiSelect={true} />
                         <table className="tableNormal">
                             <tbody>
                                 <tr>
@@ -341,7 +148,7 @@ export default function page() {
                                 </tr>
                             </tbody>
                         </table>
-
+                        
                         <div className="centerWrap">
                             <div id="pleaseWaitMessage" style={{display: "none"}} className="text-blue-900 text-center">Please wait...</div>
                             <button id="submit" className="Jbutton">Submit</button>

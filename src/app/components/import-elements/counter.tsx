@@ -1,38 +1,32 @@
 import React, { useRef, Ref, ReactElement } from 'react';
-function scoreDisplay(ref: Ref<HTMLElement>, score: number, id?: string) {
+function scoreDisplay(ref: Ref<HTMLInputElement>, score: number, id?: string) {
     if (id) {
         return (
-            <span className="header text-4xl" ref={ ref } id={id}>{ score }</span>
+            <input className="header text-4xl" ref={ ref } id={id} defaultValue={score} />
         )
     } else {
         return (
-            <span className="header text-4xl" ref={ ref }>{ score }</span>
+            <input className="header text-4xl" ref={ ref } defaultValue={score} />
         )
     }
 }
 
 
-export default function fuelCounter({ classes, id, outField }: {classes?: string, id?: string, outField?: boolean}) {
+export default function fuelCounter({ classes, id}: {classes?: string, id?: string, outField?: boolean}) {
     
     if (!classes) {
         classes = "";
     }
-    let title: string;
-    if (!outField) {
-        title = "Fuel Count: ";
-    } else {
-        title = "Shot out of field:";
-    }
-    let scoreElement = useRef(<span /> as unknown as HTMLSpanElement);    
+    let scoreElement = useRef(<span /> as unknown as HTMLInputElement);    
     function changeScore(increment: number) {
-        scoreElement.current.textContent = String(Number(scoreElement.current.textContent) + increment);
+        scoreElement.current.value = String(Number(scoreElement.current.value) + increment);
     } 
     return (
-        <table className={`tableNormal ${classes}`}>
+        <table className={`tableNormal ${classes}`} id={ id }>
           <tbody>
                 <tr>
                     <th colSpan={1}>
-                        <span className="header">{ title }</span>
+                        <span className="header">Fuel Count:</span>
                     </th>
                     <th>
                         {scoreDisplay(scoreElement,0)}

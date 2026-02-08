@@ -2,89 +2,86 @@ import firebase from "firebase/compat/app";
 import { doc, getFirestore, setDoc } from "firebase/firestore"
 
 export default function initialize() {
-    // window.addEventListener('load', () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const teamNumber = urlParams.get('team');
-        const matchNum = urlParams.get('match');
-        const scoutName = urlParams.get('name');
-        const scoutingSeat = urlParams.get('seat');
-        const theme = urlParams.get('theme')
+    const urlParams = new URLSearchParams(window.location.search);
+    const teamNumber = urlParams.get('team');
+    const matchNum = urlParams.get('match');
+    const scoutName = urlParams.get('name');
+    const scoutingSeat = urlParams.get('seat');
+    const theme = urlParams.get('theme')
 
-        if (teamNumber) {
-            document.getElementById('teamNumber')!.textContent = teamNumber;
-        }
-        if (matchNum) {
-            document.getElementById('matchNumber')!.textContent = matchNum;
-        }
-        if (scoutingSeat) {
-            console.log(`Scouting Seat: ${scoutingSeat}`);
-        }
-        document.querySelectorAll('input').forEach((input) => {
-            input.style.background = 'none';
-            input.style.border = 'none';
+    if (teamNumber) {
+        document.getElementById('teamNumber')!.textContent = teamNumber;
+    }
+    if (matchNum) {
+        document.getElementById('matchNumber')!.textContent = matchNum;
+    }
+    if (scoutingSeat) {
+        console.log(`Scouting Seat: ${scoutingSeat}`);
+    }
+    document.querySelectorAll('input').forEach((input) => {
+        input.style.background = 'none';
+        input.style.border = 'none';
+    });
+    if (theme === 'red') {
+        document.querySelectorAll('*:not(div)').forEach(function(element) {
+            if (element.nodeName === 'TD'|| element.nodeName === 'TH') {
+                (element as HTMLElement).style.border = '1px solid #F88379';
+            }
+            if (element.id !== 'egTitle' && element.id !== 'teleTitle'&& element.id !=='aTitle') {
+                (element as HTMLElement).style.color = '#E34234';
+            } else {
+                (element as HTMLElement).style.color = 'white';
+            }
         });
-        if (theme === 'red') {
-            document.querySelectorAll('*:not(div)').forEach(function(element) {
-                if (element.nodeName === 'TD'|| element.nodeName === 'TH') {
-                    (element as HTMLElement).style.border = '1px solid #F88379';
-                }
-                if (element.id !== 'egTitle' && element.id !== 'teleTitle'&& element.id !=='aTitle') {
-                    (element as HTMLElement).style.color = '#E34234';
-                } else {
-                    (element as HTMLElement).style.color = 'white';
-                }
-            });
-        } else if (theme === 'blue') {
-            document.querySelectorAll('*:not(div)').forEach(function(element) {
-                if (element.nodeName === 'TD'|| element.nodeName === 'TH') {
-                    (element as HTMLElement).style.borderColor = '#2DA0ED';
-                }
-                if (element.id !== 'egTitle' && element.id !== 'teleTitle'&& element.id !=='aTitle') {
-                    (element as HTMLElement).style.color = '	RoyalBlue';
-                } else {
-                    (element as HTMLElement).style.color = 'white';
-                }
-            });
-        } else if (theme === 'pink') {
-            document.querySelectorAll('*:not(div):not(div)').forEach(function(element) {
-                if (element.nodeName === 'TD' || element.nodeName === 'TH') {
-                    (element as HTMLElement).style.borderColor = '#FFA6C9';
-                }
-                if (element.id !== 'egTitle' && element.id !== 'teleTitle'&& element.id !=='aTitle') {
-                    (element as HTMLElement).style.color = '#F58FBD';
-                } else {
-                    (element as HTMLElement).style.color = 'white';
-                }
-            });
-        } else if (theme === 'purple') {
-            document.querySelectorAll('*:not(div)').forEach(function(element) {
-                if (element.nodeName === 'TD'|| element.nodeName === 'TH') {
-                    (element as HTMLElement).style.borderColor = 'orchid';
-                }
-                if (element.id !== 'egTitle' && element.id !== 'teleTitle'&& element.id !=='aTitle') {
-                    (element as HTMLElement).style.color = 'mediumorchid';
-                } else {
-                    (element as HTMLElement).style.color = 'white';
-                }
-            });
-        } else if (theme === 'gold') {
-            document.querySelectorAll('*:not(div)').forEach(function(element) {
-                if (element.nodeName === 'TD'|| element.nodeName === 'TH') {
-                    (element as HTMLElement).style.borderColor = 'PaleGoldenrod';
-                }
-                if (element.id !== 'egTitle' && element.id !== 'teleTitle' && element.id !=='aTitle') {
-                    (element as HTMLElement).style.color = 'goldenrod';
-                } else {
-                    (element as HTMLElement).style.color = 'white';
-                }
-            });
-        }
-    // });
+    } else if (theme === 'blue') {
+        document.querySelectorAll('*:not(div)').forEach(function(element) {
+            if (element.nodeName === 'TD'|| element.nodeName === 'TH') {
+                (element as HTMLElement).style.borderColor = '#2DA0ED';
+            }
+            if (element.id !== 'egTitle' && element.id !== 'teleTitle'&& element.id !=='aTitle') {
+                (element as HTMLElement).style.color = '	RoyalBlue';
+            } else {
+                (element as HTMLElement).style.color = 'white';
+            }
+        });
+    } else if (theme === 'pink') {
+        document.querySelectorAll('*:not(div):not(div)').forEach(function(element) {
+            if (element.nodeName === 'TD' || element.nodeName === 'TH') {
+                (element as HTMLElement).style.borderColor = '#FFA6C9';
+            }
+            if (element.id !== 'egTitle' && element.id !== 'teleTitle'&& element.id !=='aTitle') {
+                (element as HTMLElement).style.color = '#F58FBD';
+            } else {
+                (element as HTMLElement).style.color = 'white';
+            }
+        });
+    } else if (theme === 'purple') {
+        document.querySelectorAll('*:not(div)').forEach(function(element) {
+            if (element.nodeName === 'TD'|| element.nodeName === 'TH') {
+                (element as HTMLElement).style.borderColor = 'orchid';
+            }
+            if (element.id !== 'egTitle' && element.id !== 'teleTitle'&& element.id !=='aTitle') {
+                (element as HTMLElement).style.color = 'mediumorchid';
+            } else {
+                (element as HTMLElement).style.color = 'white';
+            }
+        });
+    } else if (theme === 'gold') {
+        document.querySelectorAll('*:not(div)').forEach(function(element) {
+            if (element.nodeName === 'TD'|| element.nodeName === 'TH') {
+                (element as HTMLElement).style.borderColor = 'PaleGoldenrod';
+            }
+            if (element.id !== 'egTitle' && element.id !== 'teleTitle' && element.id !=='aTitle') {
+                (element as HTMLElement).style.color = 'goldenrod';
+            } else {
+                (element as HTMLElement).style.color = 'white';
+            }
+        });
+    }
 }
 
 export function main() {
     console.log('working, v1 - 1st 2026 Build');
-
     const firebaseConfig = {
         apiKey: "AIzaSyApl7KffIOEn1ZL20lFO5kSiuFfzhiZ_-Q",
         authDomain: "leaderboard-66713.firebaseapp.com",
@@ -106,17 +103,6 @@ export function main() {
     submitButton!.parentNode!.insertBefore(pleaseWaitMessage, submitButton);
 
 
-    //TELEOP
-
-    // Algae counters
-
-    document.getElementById('defenseY')!.addEventListener("click", () => {
-        document.getElementById("defenseTable")!.style.display = "table";
-    });
-
-    document.getElementById('defenseN')!.addEventListener("click", () => {
-        document.getElementById("defenseTable")!.style.display = "none";
-    });
 
 
     // Read URL parameters
