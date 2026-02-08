@@ -54,7 +54,12 @@ export default function page() {
                         <c.boolOptions title="Did robot climb?" classes="onField" />
                         <c.boolOptions title="Did robot visit depot?"  classes="onField" />
                         <c.boolOptions title="Did robot visit outpost?" classes="onField" />
-                        <c.boolOptions title="Did robot pick up fuel?" classes="onField" />
+                        <c.multiOptions title="Picked up fuel from:" options={[
+                            {return: "depot", option:"Depot"},
+                            {return: "outpost", option:"Outpost"},
+                            {return: "neutral", option:"Neutral Zone"},
+                            {return: "none", option:"Did not pick up fuel"}
+                        ]} classes="onField leftAlign" vertical={true} multiSelect={true} />
                         <c.fuelCounter classes="onField" />
                         <c.multiOptions title="Climb Location" options={[
                             {return: "left", option:"Left"},
@@ -81,6 +86,11 @@ export default function page() {
                     <div className="endgame">
                         <h2 id="egTitle" className="onField">End Game</h2>
                         <c.fuelCounter classes="onField" />
+                        <c.multiOptions title="Climb Location" options={[
+                            {return: "leftEndgame", option:"Left"},
+                            {return: "middleEndgame", option:"Middle"},
+                            {return: "rightEndgame", option:"Right"}
+                        ]} classes="onField" />
                         <c.multiOptions title="Climb Level" options={[
                             {return: 1, option:"1"},
                             {return: 2, option:"2"},
