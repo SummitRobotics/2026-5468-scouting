@@ -1,15 +1,26 @@
 "use client";
 import {useEffect} from "react";
+import { useSearchParams } from 'next/navigation'
+
 import initialize, {main} from "./form";
 import * as c from "../components"
 
 export default function page() {
+    const searchParams = useSearchParams()
+    const team = searchParams.get('team');
+    const match = searchParams.get('match');
+
     useEffect(() => {
         initialize();
         main();
     }, []);
     return (
         <>
+            <div className="z-0 sticky top-0 flex justify-center bg-white dark:bg-black p-4 shadow-md space-x-4">
+                <div className="">Match #{match}</div>
+                <div className="">Team #{team}</div>
+            </div>
+
             <div id="container">
                 <div className="containerInner">
                     <h1 className="headerMain">Match Scouting</h1>
