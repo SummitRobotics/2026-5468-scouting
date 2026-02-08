@@ -2,7 +2,7 @@ import firebase from "firebase/compat/app";
 import { doc, getFirestore, setDoc } from "firebase/firestore"
 
 export default function initialize() {
-    // window.addEventListener('load', () => {
+    window.addEventListener('load', () => {
         const urlParams = new URLSearchParams(window.location.search);
         const teamNumber = urlParams.get('team');
         const matchNum = urlParams.get('match');
@@ -79,7 +79,7 @@ export default function initialize() {
                 }
             });
         }
-    // });
+    });
 }
 
 export function main() {
