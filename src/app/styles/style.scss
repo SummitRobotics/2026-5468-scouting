@@ -17,21 +17,21 @@ $colorRedDark: #FF696130;
 }
 
 @mixin elementDefault {
-        background-color: black;
-        border: 2px solid rgba(250, 250, 250, 0.5);
+        background-color: black !important;
+        border: 2px solid rgba(250, 250, 250, 0.5) !important;
         color: white;
         padding: 0.5em;
         transition: $animationTransition1; 
         &:hover {
-                border-color: $chaosGreen;
-                color:$chaosGreen;
+                border-color: $chaosGreen !important;
+                color: $chaosGreen;
         }
         .teleop &:hover {
-                border-color: $colorBlue;
+                border-color: $colorBlue !important;
                 color: $colorBlue;
         }
         .endgame &:hover {
-                border-color: $colorRed;
+                border-color: $colorRed !important;
                 color: $colorRed; 
         }
 }
@@ -144,8 +144,6 @@ hr {
 input[type=radio], input[type=checkbox]{
         appearance: none;
         border-radius: 50%;
-        background: rgb(0,0,0);
-        border: 0.3em solid rgb(28,28,28);
         outline: 0.2em solid $chaosGreenDark;
         width: 1em;
         height: 1em; 
@@ -246,8 +244,8 @@ span[id^=cv], span[id^=Tcv] { //ripoff RegEx
         font-size: 2em;
 }
 
-.Jbutton {
-        @include elementDefault;
+.Jbutton, .textInput {
+        appearance: none;
         font-size: 1.4em;
         cursor: pointer;
         margin: 0.3em 0.7em;
@@ -255,9 +253,24 @@ span[id^=cv], span[id^=Tcv] { //ripoff RegEx
         min-height: 2.3em;
         border-radius: 0.5em;
         display: inline-block !important; // Ensure buttons are inline-block
+        @include elementDefault;  
 }
-
-
+.textInput {
+        width: 80%;
+        &:focus {
+                outline: none;
+                border-color: $chaosGreen !important;
+                color:$chaosGreen;
+        }
+        .teleop &:focus {
+                border-color: $colorBlue !important;
+                color: $colorBlue;
+        }
+        .endgame &:focus {
+                border-color: $colorRed !important;
+                color: $colorRed; 
+        }
+}
 
 img {
         width: 50%;
@@ -306,7 +319,7 @@ select {
         text-align: left;
 } 
 
-label { //more RegEx
+label {
         text-wrap: wrap;
 }
 

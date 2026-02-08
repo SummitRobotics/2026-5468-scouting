@@ -1,12 +1,12 @@
-import React, { useRef, Ref, ReactElement } from 'react';
+import { useRef, Ref } from 'react';
 function scoreDisplay(ref: Ref<HTMLInputElement>, score: number, id?: string) {
     if (id) {
         return (
-            <input className="header text-4xl" ref={ ref } id={id} defaultValue={score} />
+            <input className="textInput" ref={ ref } id={id} defaultValue={score} style={{}} />
         )
     } else {
         return (
-            <input className="header text-4xl" ref={ ref } defaultValue={score} />
+            <input className="textInput" ref={ ref } defaultValue={score} style={{}} />
         )
     }
 }
@@ -25,7 +25,7 @@ export default function fuelCounter({ classes, id}: {classes?: string, id?: stri
         <table className={`tableNormal ${classes}`} id={ id }>
           <tbody>
                 <tr>
-                    <th colSpan={1}>
+                    <th colSpan={1} className="w-[50%]">
                         <span className="header">Fuel Count:</span>
                     </th>
                     <th>

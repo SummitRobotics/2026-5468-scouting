@@ -16,6 +16,7 @@ hr {
 .headerMain {
   text-align: center;
   text-shadow: 2px 2px 8px rgba(61, 61, 61, 0.5), -2px 2px 8px rgba(61, 61, 61, 0.5), 2px -2px 8px rgba(61, 61, 61, 0.5), -2px -2px 8px rgba(61, 61, 61, 0.5);
+  margin-top: 3em;
   padding: 0em;
   font-size: 1.7em;
 }
@@ -96,8 +97,6 @@ input[type=radio], input[type=checkbox] {
      -moz-appearance: none;
           appearance: none;
   border-radius: 50%;
-  background: rgb(0, 0, 0);
-  border: 0.3em solid rgb(28, 28, 28);
   outline: 0.2em solid rgba(20, 198, 0, 0.1882352941);
   width: 1em;
   height: 1em;
@@ -138,8 +137,8 @@ input[type=checkbox] {
 }
 
 input[type=number], input[type=text] {
-  background-color: black;
-  border: 2px solid rgba(250, 250, 250, 0.5);
+  background-color: black !important;
+  border: 2px solid rgba(250, 250, 250, 0.5) !important;
   color: white;
   padding: 0.5em;
   transition: all 0.6s cubic-bezier(0.06, 0.98, 0.41, 0.93);
@@ -153,15 +152,15 @@ input[type=number], input[type=text] {
   overflow-x: scroll;
 }
 input[type=number]:hover, input[type=text]:hover {
-  border-color: #14c600;
+  border-color: #14c600 !important;
   color: #14c600;
 }
 .teleop input[type=number]:hover, .teleop input[type=text]:hover {
-  border-color: #AEC6CF;
+  border-color: #AEC6CF !important;
   color: #AEC6CF;
 }
 .endgame input[type=number]:hover, .endgame input[type=text]:hover {
-  border-color: #FF6961;
+  border-color: #FF6961 !important;
   color: #FF6961;
 }
 input[type=number]:focus, input[type=text]:focus {
@@ -173,8 +172,8 @@ input::-webkit-inner-spin-button {
 }
 
 textarea {
-  background-color: black;
-  border: 2px solid rgba(250, 250, 250, 0.5);
+  background-color: black !important;
+  border: 2px solid rgba(250, 250, 250, 0.5) !important;
   color: white;
   padding: 0.5em;
   transition: all 0.6s cubic-bezier(0.06, 0.98, 0.41, 0.93);
@@ -187,15 +186,15 @@ textarea {
   font-size: 1.5em;
 }
 textarea:hover {
-  border-color: #14c600;
+  border-color: #14c600 !important;
   color: #14c600;
 }
 .teleop textarea:hover {
-  border-color: #AEC6CF;
+  border-color: #AEC6CF !important;
   color: #AEC6CF;
 }
 .endgame textarea:hover {
-  border-color: #FF6961;
+  border-color: #FF6961 !important;
   color: #FF6961;
 }
 textarea::-webkit-scrollbar {
@@ -222,12 +221,10 @@ span[id^=cv], span[id^=Tcv] {
   font-size: 2em;
 }
 
-.Jbutton, .modal .modalContent button {
-  background-color: black;
-  border: 2px solid rgba(250, 250, 250, 0.5);
-  color: white;
-  padding: 0.5em;
-  transition: all 0.6s cubic-bezier(0.06, 0.98, 0.41, 0.93);
+.Jbutton, .modal .modalContent button, .textInput {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
   font-size: 1.4em;
   cursor: pointer;
   margin: 0.3em 0.7em;
@@ -235,17 +232,39 @@ span[id^=cv], span[id^=Tcv] {
   min-height: 2.3em;
   border-radius: 0.5em;
   display: inline-block !important;
+  background-color: black !important;
+  border: 2px solid rgba(250, 250, 250, 0.5) !important;
+  color: white;
+  padding: 0.5em;
+  transition: all 0.6s cubic-bezier(0.06, 0.98, 0.41, 0.93);
 }
-.Jbutton:hover, .modal .modalContent button:hover {
-  border-color: #14c600;
+.Jbutton:hover, .modal .modalContent button:hover, .textInput:hover {
+  border-color: #14c600 !important;
   color: #14c600;
 }
-.teleop .Jbutton:hover, .teleop .modal .modalContent button:hover, .modal .modalContent .teleop button:hover {
-  border-color: #AEC6CF;
+.teleop .Jbutton:hover, .teleop .modal .modalContent button:hover, .modal .modalContent .teleop button:hover, .teleop .textInput:hover {
+  border-color: #AEC6CF !important;
   color: #AEC6CF;
 }
-.endgame .Jbutton:hover, .endgame .modal .modalContent button:hover, .modal .modalContent .endgame button:hover {
-  border-color: #FF6961;
+.endgame .Jbutton:hover, .endgame .modal .modalContent button:hover, .modal .modalContent .endgame button:hover, .endgame .textInput:hover {
+  border-color: #FF6961 !important;
+  color: #FF6961;
+}
+
+.textInput {
+  width: 80%;
+}
+.textInput:focus {
+  outline: none;
+  border-color: #14c600 !important;
+  color: #14c600;
+}
+.teleop .textInput:focus {
+  border-color: #AEC6CF !important;
+  color: #AEC6CF;
+}
+.endgame .textInput:focus {
+  border-color: #FF6961 !important;
   color: #FF6961;
 }
 
@@ -262,8 +281,8 @@ img:hover {
 }
 
 select {
-  background-color: black;
-  border: 2px solid rgba(250, 250, 250, 0.5);
+  background-color: black !important;
+  border: 2px solid rgba(250, 250, 250, 0.5) !important;
   color: white;
   padding: 0.5em;
   transition: all 0.6s cubic-bezier(0.06, 0.98, 0.41, 0.93);
@@ -274,15 +293,15 @@ select {
   display: inline-block;
 }
 select:hover {
-  border-color: #14c600;
+  border-color: #14c600 !important;
   color: #14c600;
 }
 .teleop select:hover {
-  border-color: #AEC6CF;
+  border-color: #AEC6CF !important;
   color: #AEC6CF;
 }
 .endgame select:hover {
-  border-color: #FF6961;
+  border-color: #FF6961 !important;
   color: #FF6961;
 }
 select:focus {

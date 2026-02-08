@@ -92,11 +92,12 @@ export default function page() {
                             {return: "rightEndgame", option:"Right"}
                         ]} classes="onField" />
                         <c.multiOptions title="Climb Level" options={[
-                            {return: 1, option:"1"},
-                            {return: 2, option:"2"},
-                            {return: 3, option:"3"},
-                            {return: 0, option:"No climb"}
-                        ]} classes="onField" vertical={false} />
+                            {return: 1, option:"Level 1"},
+                            {return: 2, option:"Level 2"},
+                            {return: 3, option:"Level 3"},
+                            {return: 0, option:"No climb"},
+                            {return: -1, option:"Failed climb"}
+                        ]} classes="onField leftAlign" vertical={true} />
                         <c.multiOptions title="Driver Skill" options={[
                             {return: 4, option:"Very Effective"},
                             {return: 3, option:"Effective"},
