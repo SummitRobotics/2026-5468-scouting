@@ -1,22 +1,29 @@
 "use client";
 import {useEffect} from "react";
+import { useSearchParams } from 'next/navigation'
+
 import initialize, {main} from "./form";
 import * as c from "../components"
 
 export default function page() {
+    const searchParams = useSearchParams()
+    const team = searchParams.get('team');
+    const match = searchParams.get('match');
+
     useEffect(() => {
         initialize();
         main();
     }, []);
     return (
         <>
+            <div className="z-0 sticky top-0 flex justify-center bg-white dark:bg-black p-4 shadow-md space-x-4">
+                <div className="">Match #{match}</div>
+                <div className="">Team #{team}</div>
+            </div>
+
             <div id="container">
                 <div className="containerInner">
                     <h1 className="headerMain">Match Scouting</h1>
-                    <div className="text-center">
-                        <p>Match #<span id="matchNumber"></span></p>
-                        <p>Team: <span id="teamNumber"></span></p>
-                    </div>
                     <div className="auto">
                         <h2 id="aTitle">Auto Phase</h2>
                         <c.boolOptions title="Robot on Field?" YFunc={() => {
@@ -40,8 +47,8 @@ export default function page() {
                             });
                         }} />
                         <c.multiOptions title="Starting Position" options={[
-                            {return: "left", option:"Left"}, 
-                            {return: "middle", option:"Middle"}, 
+                            {return: "left", option:"Left"},
+                            {return: "middle", option:"Middle"},
                             {return: "right", option:"Right"}
                         ]} classes="onField" />
                         <c.boolOptions title="Did robot climb?" classes="onField" />
@@ -50,8 +57,8 @@ export default function page() {
                         <c.boolOptions title="Did robot pick up fuel?" classes="onField" />
                         <c.fuelCounter classes="onField" />
                         <c.multiOptions title="Climb Location" options={[
-                            {return: "left", option:"Left"}, 
-                            {return: "middle", option:"Middle"}, 
+                            {return: "left", option:"Left"},
+                            {return: "middle", option:"Middle"},
                             {return: "right", option:"Right"}
                         ]} classes="onField" />
                     </div>
@@ -59,9 +66,9 @@ export default function page() {
                     <div className="teleop onField">
                         <h2 id="teleTitle">Teleop</h2>
                         <c.multiOptions title="Did robot snowblow from:" options={[
-                            {return: 2, option:"Zone 2 to Zone 1"}, 
-                            {return: 3, option:"Zone 3 to Zone 1"}, 
-                            {return: 4, option:"Zone 4 to Zone 1"}, 
+                            {return: 2, option:"Zone 2 to Zone 1"},
+                            {return: 3, option:"Zone 3 to Zone 1"},
+                            {return: 4, option:"Zone 4 to Zone 1"},
                             {return: 0, option:"Robot did not snowblow"}
                         ]} classes="leftAlign onField" vertical={true} />
                         <c.fuelCounter />
@@ -74,15 +81,15 @@ export default function page() {
                     <div className="endgame">
                         <h2 id="egTitle" className="onField">End Game</h2>
                         <c.fuelCounter classes="onField" />
-                        <c.multiOptions title="Climb Level" options={[ 
-                            {return: 1, option:"1"}, 
-                            {return: 2, option:"2"}, 
+                        <c.multiOptions title="Climb Level" options={[
+                            {return: 1, option:"1"},
+                            {return: 2, option:"2"},
                             {return: 3, option:"3"},
                             {return: 0, option:"No climb"}
                         ]} classes="onField" vertical={false} />
-                        <c.multiOptions title="Driver Skill" options={[ 
-                            {return: 4, option:"Very Effective"}, 
-                            {return: 3, option:"Effective"}, 
+                        <c.multiOptions title="Driver Skill" options={[
+                            {return: 4, option:"Very Effective"},
+                            {return: 3, option:"Effective"},
                             {return: 2, option:"Average"},
                             {return: 1, option:"Not Effective"},
                             {return: 0, option:"Not Sure"}
@@ -103,15 +110,15 @@ export default function page() {
                             {return: "Stuck: Coral", option: "Stuck on coral"}
                         ]} id="defenseTable" classes="leftAlign onField" vertical={true} multiSelect={true} />
                         <c.multiOptions title="Speed" options={[
-                            {return: "slow", option:"Slow"}, 
-                            {return: "medium", option:"Medium"}, 
+                            {return: "slow", option:"Slow"},
+                            {return: "medium", option:"Medium"},
                             {return: "fast", option:"Fast"}
                         ]} classes="onField" />
                         <c.multiOptions title="Robot Assessment" options={[
-                            {return: "died", option:"Died / Immobile"}, 
-                            {return: "tipped", option:"Tipped over"}, 
+                            {return: "died", option:"Died / Immobile"},
+                            {return: "tipped", option:"Tipped over"},
                             {return: "spilled", option:"Spilled fuel on bump"},
-                            {return: "stuck: fuel", option:"Stuck on fuel"}, 
+                            {return: "stuck: fuel", option:"Stuck on fuel"},
                             {return: "stuck: bump", option:"Stuck on bump"}
                         ]} classes="leftAlign onField" vertical={true} multiSelect={true} />
                         <table className="tableNormal">
@@ -148,8 +155,8 @@ export default function page() {
                                 </tr>
                             </tbody>
                         </table>
-                        
-                        <div className="centerWrap">
+
+                        <div className="centerWrap mb-24">
                             <div id="pleaseWaitMessage" style={{display: "none"}} className="text-blue-900 text-center">Please wait...</div>
                             <button id="submit" className="Jbutton">Submit</button>
                         </div>

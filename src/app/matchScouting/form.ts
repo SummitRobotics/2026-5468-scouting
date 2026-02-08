@@ -3,18 +3,10 @@ import { doc, getFirestore, setDoc } from "firebase/firestore"
 
 export default function initialize() {
     const urlParams = new URLSearchParams(window.location.search);
-    const teamNumber = urlParams.get('team');
-    const matchNum = urlParams.get('match');
     const scoutName = urlParams.get('name');
     const scoutingSeat = urlParams.get('seat');
     const theme = urlParams.get('theme')
 
-    if (teamNumber) {
-        document.getElementById('teamNumber')!.textContent = teamNumber;
-    }
-    if (matchNum) {
-        document.getElementById('matchNumber')!.textContent = matchNum;
-    }
     if (scoutingSeat) {
         console.log(`Scouting Seat: ${scoutingSeat}`);
     }

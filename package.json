@@ -30,6 +30,6 @@
   "electronWebpack": {
     "whiteListedModules": [
       "firebase"
-    ]   
+    ]
   }
 }

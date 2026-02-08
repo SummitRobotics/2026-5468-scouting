@@ -16,7 +16,6 @@ hr {
 .headerMain {
   text-align: center;
   text-shadow: 2px 2px 8px rgba(61, 61, 61, 0.5), -2px 2px 8px rgba(61, 61, 61, 0.5), 2px -2px 8px rgba(61, 61, 61, 0.5), -2px -2px 8px rgba(61, 61, 61, 0.5);
-  margin-top: 3em;
   padding: 0em;
   font-size: 1.7em;
 }
