@@ -1,6 +1,7 @@
 "use client";
 import {useEffect} from "react";
 import { useSearchParams } from 'next/navigation'
+import Image from "next/image";
 
 import initialize, {main} from "./form";
 import * as c from "../components"
@@ -9,6 +10,9 @@ export default function page() {
     const searchParams = useSearchParams()
     const team = searchParams.get('team');
     const match = searchParams.get('match');
+    const seat = searchParams.get('seat');
+    const fieldImg = (seat?.includes('blue')) ? '/images/field_top_blue_home.png' : '/images/field_top_red_home.png';
+    const teamColor = (seat?.includes('blue')) ? 'text-blue-500' : 'text-red-500';
 
     useEffect(() => {
         initialize();
@@ -16,9 +20,9 @@ export default function page() {
     }, []);
     return (
         <>
-            <div className="z-0 sticky top-0 flex justify-center bg-white dark:bg-black p-4 shadow-md space-x-4">
-                <div className="">Match #{match}</div>
-                <div className="">Team #{team}</div>
+            <div className={`z-0 sticky top-0 flex justify-center bg-white dark:bg-black p-4 shadow-md space-x-4 ${teamColor}`}>
+                <div className="font-bold">Match #{match}</div>
+                <div className="font-bold">Team #{team}</div>
             </div>
 
             <div id="container">
@@ -70,10 +74,14 @@ export default function page() {
 
                     <div className="teleop onField">
                         <h2 id="teleTitle">Teleop</h2>
+                        <div className="relative">
+                            <h3 className="text-center font-bold">Field Zone Reference</h3>
+                            <Image src={fieldImg} alt="Field Diagram" className="fieldDiagram" width={0} height={0} sizes="100vw" style={{ width: '100%', height: 'auto' }}/>
+                        </div>
                         <c.multiOptions title="Did robot snowblow from:" options={[
-                            {return: 2, option:"Zone 2 to Zone 1"},
-                            {return: 3, option:"Zone 3 to Zone 1"},
-                            {return: 4, option:"Zone 4 to Zone 1"},
+                            {return: 2, option:"Alliance Zone to Alliance Zone"},
+                            {return: 3, option:"Neutral 2 to Home Zone"},
+                            {return: 4, option:"Neutral 1 to Home Zone"},
                             {return: 0, option:"Robot did not snowblow"}
                         ]} classes="leftAlign onField" vertical={true} />
                         <c.fuelCounter />
