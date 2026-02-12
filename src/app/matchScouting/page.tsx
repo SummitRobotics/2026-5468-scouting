@@ -30,7 +30,7 @@ export default function page() {
                     <h1 className="headerMain">Match Scouting</h1>
                     <div className="auto">
                         <h2 id="aTitle">Auto Phase</h2>
-                        <c.boolOptions title="Robot on Field?" YFunc={() => {
+                        <c.boolOptions title="Robot on Field" name="on_field" YFunc={() => {
                             document.querySelectorAll(".onField").forEach((element) => {
                                 (element as HTMLElement).style.display = "table";
                             });
@@ -41,7 +41,7 @@ export default function page() {
                             });
                             document.getElementById("teleTitle")!.style.display = "none";
                         }} />
-                        <c.boolOptions title="Did robot leave starting position?" classes="onField" YFunc={() => {
+                        <c.boolOptions title="Left starting position" name="auto_moved" classes="onField" YFunc={() => {
                             document.querySelectorAll(".auto .onField ~ .onField").forEach((element) => {
                                 (element as HTMLElement).style.display = "table";
                             });
@@ -50,22 +50,20 @@ export default function page() {
                                 (element as HTMLElement).style.display = "none";
                             });
                         }} />
-                        <c.multiOptions title="Starting Position" options={[
+                        <c.multiOptions title="Starting Position" name="start_position" options={[
                             {return: "left", option:"Left"},
                             {return: "middle", option:"Middle"},
                             {return: "right", option:"Right"}
                         ]} classes="onField" />
-                        <c.boolOptions title="Did robot climb?" classes="onField" />
-                        <c.boolOptions title="Did robot visit depot?"  classes="onField" />
-                        <c.boolOptions title="Did robot visit outpost?" classes="onField" />
+                        <c.boolOptions title="Did robot climb?" name="auto_climb" classes="onField" />
                         <c.multiOptions title="Picked up fuel from:" options={[
-                            {return: "depot", option:"Depot"},
-                            {return: "outpost", option:"Outpost"},
-                            {return: "neutral", option:"Neutral Zone"},
-                            {return: "none", option:"Did not pick up fuel"}
+                            {return: "depot", name: "auto_fuel_depot", option:"Depot"},
+                            {return: "outpost", name: "auto_fuel_outpost", option:"Outpost"},
+                            {return: "neutral", name: "auto_fuel_neutral", option:"Neutral Zone"},
+                            {return: "none", name: "auto_fuel_none", option:"Did not pick up fuel"}
                         ]} classes="onField leftAlign" vertical={true} multiSelect={true} />
-                        <c.fuelCounter classes="onField" />
-                        <c.multiOptions title="Climb Location" options={[
+                        <c.fuelCounter name="auto_fuel_score" classes="onField" />
+                        <c.multiOptions title="Climb Location" name="auto_climb_location" options={[
                             {return: "left", option:"Left"},
                             {return: "middle", option:"Middle"},
                             {return: "right", option:"Right"}
@@ -78,42 +76,42 @@ export default function page() {
                             <h3 className="text-center font-bold">Field Zone Reference</h3>
                             <Image src={fieldImg} alt="Field Diagram" className="fieldDiagram" width={0} height={0} sizes="100vw" style={{ width: '100%', height: 'auto' }}/>
                         </div>
-                        <c.multiOptions title="Did robot snowblow from:" options={[
-                            {return: 2, option:"Alliance Zone to Alliance Zone"},
-                            {return: 3, option:"Neutral 2 to Home Zone"},
-                            {return: 4, option:"Neutral 1 to Home Zone"},
-                            {return: 0, option:"Robot did not snowblow"}
-                        ]} classes="leftAlign onField" vertical={true} />
+                        <c.multiOptions title="Snowblow/Pass From:" options={[
+                            {return: 2, name: "teleop_snowblow_alliance", option:"Alliance Zone to Alliance Zone"},
+                            {return: 3, name: "teleop_snowblow_neutral2", option:"Neutral 2 to Home Zone"},
+                            {return: 4, name: "teleop_snowblow_neutral1", option:"Neutral 1 to Home Zone"},
+                            {return: 0, name: "teleop_snowblow_none", option:"Robot did not snowblow"}
+                        ]} classes="leftAlign onField" vertical={true} multiSelect={true}/>
                         <c.fuelCounter />
-                         <c.boolOptions title="Did robot shoot out of field?" />
-                        <c.boolOptions title="Can robot shoot while moving?"  />
-                        <c.boolOptions title="Can robot navigate bump?"  />
-                        <c.boolOptions title="Can robot navigate trench?"  />
+                         <c.boolOptions name="teleop_out_of_bounds" title="Did robot shoot out of field?" />
+                        <c.boolOptions name="teleop_move_shoot" title="Can robot shoot while moving?"  />
+                        <c.boolOptions name="teleop_bump" title="Can robot navigate bump?"  />
+                        <c.boolOptions name="teleop_trench" title="Can robot navigate trench?"  />
                     </div>
 
                     <div className="endgame">
                         <h2 id="egTitle" className="onField">End Game</h2>
                         <c.fuelCounter classes="onField" />
-                        <c.multiOptions title="Climb Location" options={[
+                        <c.multiOptions title="Climb Location" name="endgame_climb_location" options={[
                             {return: "leftEndgame", option:"Left"},
                             {return: "middleEndgame", option:"Middle"},
                             {return: "rightEndgame", option:"Right"}
                         ]} classes="onField" />
-                        <c.multiOptions title="Climb Level" options={[
+                        <c.multiOptions title="Climb Level" name="endgame_climb_level"options={[
                             {return: 1, option:"Level 1"},
                             {return: 2, option:"Level 2"},
                             {return: 3, option:"Level 3"},
                             {return: 0, option:"No climb"},
                             {return: -1, option:"Failed climb"}
                         ]} classes="onField leftAlign" vertical={true} />
-                        <c.multiOptions title="Driver Skill" options={[
+                        <c.multiOptions title="Driver Skill" name="teleop_driver_skill" options={[
                             {return: 4, option:"Very Effective"},
                             {return: 3, option:"Effective"},
                             {return: 2, option:"Average"},
                             {return: 1, option:"Not Effective"},
                             {return: 0, option:"Not Sure"}
                         ]} classes="leftAlign onField" vertical={true} />
-                        <c.boolOptions title="Played Defense" classes="onField" YFunc={() => {
+                        <c.boolOptions title="Played Defense" name="teleop_defense" classes="onField" YFunc={() => {
                             document.getElementById("defenseTable")!.style.display = "table";
                         }} NFunc={() => {
                             document.getElementById("defenseTable")!.style.display = "none";
@@ -128,17 +126,17 @@ export default function page() {
                             {return: "Stuck: Algae", option: "Stuck on algae"},
                             {return: "Stuck: Coral", option: "Stuck on coral"}
                         ]} id="defenseTable" classes="leftAlign onField" vertical={true} multiSelect={true} />
-                        <c.multiOptions title="Speed" options={[
+                        <c.multiOptions title="Speed" name="teleop_speed" options={[
                             {return: "slow", option:"Slow"},
                             {return: "medium", option:"Medium"},
                             {return: "fast", option:"Fast"}
                         ]} classes="onField" />
                         <c.multiOptions title="Robot Assessment" options={[
-                            {return: "died", option:"Died / Immobile"},
-                            {return: "tipped", option:"Tipped over"},
-                            {return: "spilled", option:"Spilled fuel on bump"},
-                            {return: "stuck: fuel", option:"Stuck on fuel"},
-                            {return: "stuck: bump", option:"Stuck on bump"}
+                            {return: "died", name: "assessment_died", option:"Died / Immobile"},
+                            {return: "tipped", name: "assessment_tipped", option:"Tipped over"},
+                            {return: "spilled", name: "assessment_spilled", option:"Spilled fuel on bump"},
+                            {return: "stuck: fuel", name: "assessment_stuck_fuel", option:"Stuck on fuel"},
+                            {return: "stuck: bump", name: "assessment_stuck_bump", option:"Stuck on bump"}
                         ]} classes="leftAlign onField" vertical={true} multiSelect={true} />
                         <table className="tableNormal">
                             <tbody>
@@ -161,7 +159,7 @@ export default function page() {
                                         <span className="header">Ranking Points:</span>
                                     </td>
                                     <td>
-                                        <select defaultValue="0" id="rankPoints">
+                                        <select defaultValue="0" name="rank_points" id="rankPoints">
                                             <option value="0">0</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
