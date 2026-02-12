@@ -1,5 +1,5 @@
 import firebase from "firebase/compat/app";
-import { doc, getFirestore, setDoc } from "firebase/firestore"
+import { addDoc, doc, getFirestore, setDoc, collection } from "firebase/firestore"
 
 export default function initialize() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -164,43 +164,69 @@ export function main() {
 
         incrementLeaderboard(scoutName!);
 
-        const data = {   // Data to pass to forms
-            timestamp: formattedDate,
-            scoutName: scoutName,
-            matchNum: matchNum,
-            scoutingSeat: scoutingSeat,
-            teamNumber: teamNumber,
-            robotOnField: robotOnField ? robotOnField!.nextElementSibling!.textContent : null,
-            driverSkill: driverSkill ? driverSkill!.nextElementSibling!.textContent : null,
-            defense: defense ? defense.nextElementSibling!.textContent : null,
-            defenseAssess: defenseAssess.join(', '),
-            speed: speed ? speed.nextElementSibling!.textContent : null,
-            assessments: assessments.join(', '),
-            rankPoints: rankPoints,
-            notes: notes,
-            total: total
-        } as Record<string, any>;
-        const queryString = new URLSearchParams(data).toString();
-
-        fetch(`https://script.google.com/macros/s/AKfycbwaeAWUAK3oIMb1jt1qXzEfxNVKcXMstkbm4Y6n1iZc3CJtqOZTdyJKNTKkDSe0r13Big/exec?${queryString}`, {
-            method: 'POST',
-            redirect: "follow",
-            headers: {
-                'Content-Type': 'text/plain;charset=utf-8'
+        const data = {  
+            eventID: "test",
+            notes: "",
+            on_field: true,
+            rank_points:0,
+            scout_name: "",
+            start_position: "",
+            teamID: 0,
+            assesment: {
+                died: false,
+                fuel_spilled: false,
+                stuck_bump: false,
+                stuck_fuel: false,
+                tipped: false
             },
-        })
-        .then(response => response.json())
-        .then(data => {
+            auto: {
+                climb: false,
+                climb_location: "",
+                fuel_depot: false,
+                fuel_neutral: false,
+                fuel_outpost: false,
+                fuelscore: 0,
+                moved: false
+            },
+            teleop: {
+                bump: false,
+                defense: false,
+                driver_skill: 0,
+                fuelscore: 0,
+                move_shoot: false,
+                out_of_bounds: false,
+                snowblow_alliance: false,
+                snowblow_neutral1: false,
+                snowblow_neutral2: false,
+                speed: 1,
+                trench: false
+            },
+            endgame: {
+                climb_level: 0,
+                climb_location: "",
+                fuelscore: 0
+            }
+        };
+
+        submit(data);
+    }
+
+    async function submit(data: {eventID: string; notes: string; on_field: boolean; rank_points: number; scout_name: string; start_position: string;teamID: number;assesment: { died: boolean; fuel_spilled: boolean; stuck_bump: boolean; stuck_fuel: boolean; tipped: boolean}; auto: { climb: boolean; climb_location: string; fuel_depot: boolean; fuel_neutral: boolean; fuel_outpost: boolean; fuelscore: number; moved: boolean }; teleop: { bump: boolean; defense: boolean; driver_skill: number; fuelscore: number; move_shoot: boolean; out_of_bounds: boolean; snowblow_alliance: boolean; snowblow_neutral1: boolean; snowblow_neutral2: boolean; speed: number; trench: boolean }; endgame: { climb_level: number; climb_location: string; fuelscore: number }}) {
+        
+        const sTitle = `${data.eventID}-${matchNum}-${teamNumber}`
+
+        try{
+            await setDoc(doc(db, "matches", sTitle), {
+                data
+            });
             console.log('Success:', data);
             window.location.assign(`/`);
-        })
-        .catch((error) => {
+        } catch(error){
             console.error('Error:', error);
-            // Re-enable the submit button if an error occurs
             (submitButton! as HTMLButtonElement).disabled = false;
             pleaseWaitMessage.textContent = 'An error occurred. Please try again.';
             pleaseWaitMessage.style.color = 'red';
-        });
+        }
     }
 
     function showConfirmationPopup(onConfirm: Function) {
