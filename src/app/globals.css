@@ -69,6 +69,7 @@
   --color-background: var(--color-summit-grey-300);
   --color-foreground: var(--color-summit-grey-900);
 
+  --input-shadow: 0 0px 3px var(#ffffff, #ffffff80);
 
 
   /* Typography */

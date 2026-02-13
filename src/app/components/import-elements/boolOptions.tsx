@@ -5,30 +5,25 @@ export default function boolOptions({title, name, YFunc, NFunc, classes, id}: {t
     }
 
     return (
-        <table className={`tableNormal ${classes}`} id={ id }>
-          <tbody>
-                <tr>
-                    <th colSpan={2}>
-                        <span className="header">{ title }</span>
-                    </th>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="radio" name={name} id={`${title}Y`} value="Yes" onClick={() => {
-                            if (YFunc) {
-                                YFunc()
-                            }
-                        }}/> <label htmlFor={`${title}Y`}>Yes</label>
-                    </td>
-                    <td>
-                        <input type="radio" name={name} id={`${title}N`} value="No" onClick={() => {
-                            if (NFunc) {
-                                NFunc()
-                            }
-                        }}/> <label htmlFor={`${title}N`}>No</label>
-                    </td>
-                </tr>
-          </tbody>
-      </table>
+        <div id={ id } className="border-t-1 border-gray-400/30 py-4">
+            <h3 className="text-center text-lg">{ title }</h3>
+            <div className="grid grid-cols-2 gap-4 pt-4 place-items-center">
+                <div className="flex place-items-center">
+                    <input type="radio" className="mr-4 shrink-0" name={name} id={`${title}Y`} value="Yes" onClick={() => {
+                        if (YFunc) {
+                            YFunc()
+                        }
+                    }}/> <label htmlFor={`${title}Y`}>Yes</label>
+                </div>
+                <div className="flex place-items-center">
+                     <input type="radio" className="mr-4 shrink-0" name={name} id={`${title}N`} value="No" onClick={() => {
+                         if (NFunc) {
+                             NFunc()
+                         }
+                     }}/> <label htmlFor={`${title}N`}>No</label>
+                </div>
+
+            </div>
+        </div>
     )
 }

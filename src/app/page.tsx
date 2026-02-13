@@ -8,92 +8,38 @@ export default function page() {
     initialize();
   }, []);
   return (
-    <div id="container">
-        <div className="containerInner centerWrap">
-            <h1 className="headerMain">Select Match and Scouting Seat</h1>
-            <form id="scoutingForm">
-                <table className="tableNormal">
-                  <tbody>
-                    <tr>
-                        <td>
-                            <strong>Name</strong>
-                        </td>
-                        <td>
-                            <input type="text" id="name" required />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <strong>Match #:</strong>
-                        </td>
-                        <td>
-                            <input type="hidden" id="eventKey" value="2025wass" />
-                            <select id="matchNum">
-
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <strong>Scouting Seat:</strong>
-                        </td>
-                        <td>
-                            <select id="scoutingSeat">
-                                <option value="red1">Red 1</option>
-                                <option value="red2">Red 2</option>
-                                <option value="red3">Red 3</option>
-                                <option value="blue1">Blue 1</option>
-                                <option value="blue2">Blue 2</option>
-                                <option value="blue3">Blue 3</option>
-                            </select>
-                        </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <br />
-                <table className="tableNormal">
-                  <tbody>
-                    <tr>
-                        <th>
-                            <span className="header">Top 3 scouters!</span>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>
-                            <ol id="leaderboardList">
-                                <li>Loading...</li>
-                            </ol>
-                        </th>
-                    </tr>
-                  </tbody>
-                </table>
-                <button type="submit" className="inline-block rounded-full py-2 px-4 text-black border-1 border-chaos-300 bg-chaos">Go to Scouting Form</button>
-            </form>
-            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-            <div>
-                <table className="tableNormal">
-                  <tbody>
-                    <tr>
-                        <td>
-                            <strong>Color Theme</strong>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <select id="theme">
-                                <option value="default">Default</option>
-                                <option value="red" className="text-[lightcoral]">Red</option>
-                                <option value="blue" className="text-[darkcyan]">Blue</option>
-                                <option value="pink" className="text-[pink]">Pink</option>
-                                <option value="purple" className="text-[mediumorchid]">Purple</option>
-                                <option value="gold" className="text-[goldenrod]">Gold</option>
-                            </select>
-                        </td>
-                    </tr>
-                  </tbody>
-                </table>
+    <div className="p-4 grid grid-row place-content-center">
+        <h1 className="text-center text-3xl p-3">Select Match<br />and Scouting Seat</h1>
+        <form id="scoutingForm">
+            <input type="hidden" id="eventKey" value="2025wass" />
+            <div className="flex place-items-center">
+                <label htmlFor="name" className="text-lg font-bold place-self-center">Name:</label>
+                <input type="text" id="name" required />
             </div>
-        </div>
-      </div>
+            <div className="flex place-items-center">
+                <label htmlFor="matchNum" className="text-lg font-bold">Match #:</label>
+                <select id="matchNum"></select>
+            </div>
+            <div className="flex place-items-center">
+                <label htmlFor="scoutingSeat" className="text-lg font-bold">Scouting Seat:</label>
+                <select id="scoutingSeat">
+                    <option value="red1">Red 1</option>
+                    <option value="red2">Red 2</option>
+                    <option value="red3">Red 3</option>
+                    <option value="blue1">Blue 1</option>
+                    <option value="blue2">Blue 2</option>
+                    <option value="blue3">Blue 3</option>
+                </select>
+            </div>
+            <button type="submit" className="flex justify-self-center">Go to Scouting Form</button>
+
+            <div>
+                <h2 className="text-center text-xl p-3">Top 3 scouters!</h2>
+                <ol id="leaderboardList" className="text-center">
+                    <li>Loading...</li>
+                </ol>
+            </div>
+        </form>
+    </div>
   );
 }

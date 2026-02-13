@@ -74,7 +74,6 @@ export default function initialize() {
         const matchNum = (document.getElementById('matchNum') as HTMLInputElement).value;
         const scoutingSeat = (document.getElementById('scoutingSeat') as HTMLInputElement).value;
         const name = (document.getElementById('name') as HTMLInputElement).value;
-        const theme = (document.getElementById('theme') as HTMLInputElement).value;
 
         fetch(`https://www.thebluealliance.com/api/v3/match/${eventKey}_qm${matchNum}`, {
             headers: {
@@ -104,7 +103,7 @@ export default function initialize() {
                     teamNumber = data.alliances.blue.team_keys[2].replace('frc', '');
                     break;
             }
-            window.location.assign(`/matchScouting?team=${teamNumber}&match=${matchNum}&name=${encodeURIComponent(name)}&seat=${scoutingSeat}&theme=${theme}`);
+            window.location.assign(`/matchScouting?team=${teamNumber}&match=${matchNum}&name=${encodeURIComponent(name)}&seat=${scoutingSeat}`);
         })
         .catch(error => {
             console.error('Error fetching match data:', error);

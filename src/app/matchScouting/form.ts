@@ -10,66 +10,6 @@ export default function initialize() {
     if (scoutingSeat) {
         console.log(`Scouting Seat: ${scoutingSeat}`);
     }
-    document.querySelectorAll('input').forEach((input) => {
-        input.style.background = 'none';
-        input.style.border = 'none';
-    });
-    if (theme === 'red') {
-        document.querySelectorAll('*:not(div)').forEach(function(element) {
-            if (element.nodeName === 'TD'|| element.nodeName === 'TH') {
-                (element as HTMLElement).style.border = '1px solid #F88379';
-            }
-            if (element.id !== 'egTitle' && element.id !== 'teleTitle'&& element.id !=='aTitle') {
-                (element as HTMLElement).style.color = '#E34234';
-            } else {
-                (element as HTMLElement).style.color = 'white';
-            }
-        });
-    } else if (theme === 'blue') {
-        document.querySelectorAll('*:not(div)').forEach(function(element) {
-            if (element.nodeName === 'TD'|| element.nodeName === 'TH') {
-                (element as HTMLElement).style.borderColor = '#2DA0ED';
-            }
-            if (element.id !== 'egTitle' && element.id !== 'teleTitle'&& element.id !=='aTitle') {
-                (element as HTMLElement).style.color = '	RoyalBlue';
-            } else {
-                (element as HTMLElement).style.color = 'white';
-            }
-        });
-    } else if (theme === 'pink') {
-        document.querySelectorAll('*:not(div):not(div)').forEach(function(element) {
-            if (element.nodeName === 'TD' || element.nodeName === 'TH') {
-                (element as HTMLElement).style.borderColor = '#FFA6C9';
-            }
-            if (element.id !== 'egTitle' && element.id !== 'teleTitle'&& element.id !=='aTitle') {
-                (element as HTMLElement).style.color = '#F58FBD';
-            } else {
-                (element as HTMLElement).style.color = 'white';
-            }
-        });
-    } else if (theme === 'purple') {
-        document.querySelectorAll('*:not(div)').forEach(function(element) {
-            if (element.nodeName === 'TD'|| element.nodeName === 'TH') {
-                (element as HTMLElement).style.borderColor = 'orchid';
-            }
-            if (element.id !== 'egTitle' && element.id !== 'teleTitle'&& element.id !=='aTitle') {
-                (element as HTMLElement).style.color = 'mediumorchid';
-            } else {
-                (element as HTMLElement).style.color = 'white';
-            }
-        });
-    } else if (theme === 'gold') {
-        document.querySelectorAll('*:not(div)').forEach(function(element) {
-            if (element.nodeName === 'TD'|| element.nodeName === 'TH') {
-                (element as HTMLElement).style.borderColor = 'PaleGoldenrod';
-            }
-            if (element.id !== 'egTitle' && element.id !== 'teleTitle' && element.id !=='aTitle') {
-                (element as HTMLElement).style.color = 'goldenrod';
-            } else {
-                (element as HTMLElement).style.color = 'white';
-            }
-        });
-    }
 }
 
 export function main() {
@@ -164,7 +104,7 @@ export function main() {
 
         incrementLeaderboard(scoutName!);
 
-        const data = {  
+        const data = {
             eventID: "test",
             notes: "",
             on_field: true,
@@ -212,7 +152,7 @@ export function main() {
     }
 
     async function submit(data: {eventID: string; notes: string; on_field: boolean; rank_points: number; scout_name: string; start_position: string;teamID: number;assesment: { died: boolean; fuel_spilled: boolean; stuck_bump: boolean; stuck_fuel: boolean; tipped: boolean}; auto: { climb: boolean; climb_location: string; fuel_depot: boolean; fuel_neutral: boolean; fuel_outpost: boolean; fuelscore: number; moved: boolean }; teleop: { bump: boolean; defense: boolean; driver_skill: number; fuelscore: number; move_shoot: boolean; out_of_bounds: boolean; snowblow_alliance: boolean; snowblow_neutral1: boolean; snowblow_neutral2: boolean; speed: number; trench: boolean }; endgame: { climb_level: number; climb_location: string; fuelscore: number }}) {
-        
+
         const sTitle = `${data.eventID}-${matchNum}-${teamNumber}`
 
         try{
@@ -323,10 +263,5 @@ export function main() {
             console.error("Error writing submission:", error);
         }
     }
-
-    document.querySelectorAll('input').forEach((input) => {
-        input.style.background = 'none';
-        input.style.border = 'none';
-    });
 }
 
