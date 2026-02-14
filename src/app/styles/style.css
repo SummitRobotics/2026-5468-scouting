@@ -36,6 +36,7 @@ input[type=radio], input[type=checkbox] {
   cursor: pointer;
   box-shadow: 0 0 .1em color-mix(in oklab, var(--color-white) 50%, transparent);
   background-color: color-mix(in oklab, var(--color-black) 50%, transparent);
+  flex-shrink: 0;
 
   &:checked {
     background-color: color-mix(in oklab, var(--color-chaos) 100%, transparent);
@@ -77,6 +78,12 @@ textarea {
 .counter {
   button {
     height: calc(var(--spacing) * 24);
+    width: calc(var(--spacing) * 24);
+  }
+}
+
+.auto, .teleop, .endgame {
+  input[type=text]{
     width: calc(var(--spacing) * 24);
   }
 }
