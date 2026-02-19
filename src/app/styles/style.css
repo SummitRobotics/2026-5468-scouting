@@ -69,6 +69,11 @@ button, input[type=number], input[type=text], select, textarea {
     color: var(--color-black);
     width: auto;
   }
+
+  &:disabled {
+    background-color: color-mix(in oklab, var(--color-summit-grey) 50%, transparent);
+    opacity: 0.5;
+  }
 }
 
 textarea {
@@ -138,3 +143,18 @@ textarea {
   }
 }
 
+.modal {
+  .confirm-btn {
+    background-color: var(--color-chaos);
+    color: var(--color-black);
+  }
+
+  .cancel-btn {
+    background-color: var(--color-summit-grey);
+    color: var(--color-black);
+
+    &:focus {
+      outline: 0.1em solid var(--color-summit-grey-800);
+    }
+  }
+}

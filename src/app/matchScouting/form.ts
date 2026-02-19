@@ -5,7 +5,6 @@ export default function initialize() {
     const urlParams = new URLSearchParams(window.location.search);
     const scoutName = urlParams.get('name');
     const scoutingSeat = urlParams.get('seat');
-    const theme = urlParams.get('theme')
 
     if (scoutingSeat) {
         console.log(`Scouting Seat: ${scoutingSeat}`);
@@ -29,9 +28,7 @@ export function main() {
 
     const submitButton = document.getElementById("submit");
     const pleaseWaitMessage = document.createElement("div");
-    pleaseWaitMessage.style.display = "none";
-    pleaseWaitMessage.style.color = "blue";
-    pleaseWaitMessage.style.textAlign = "center";
+
     submitButton!.parentNode!.insertBefore(pleaseWaitMessage, submitButton);
 
 
@@ -71,6 +68,9 @@ export function main() {
         pleaseWaitMessage.textContent = getRandomMessage();
         pleaseWaitMessage.style.display = "block";
         console.log("Submit button clicked!");
+
+
+        return; // Temporary return to prevent form submission during testing
 
         const driverSkill = document.querySelector('input[name="skill"]:checked');
         const defense = document.querySelector('input[name="defense"]:checked');

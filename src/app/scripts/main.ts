@@ -2,7 +2,7 @@ import firebase from "firebase/compat/app";
 import { collection, getFirestore, query, orderBy, limit, onSnapshot } from "firebase/firestore"
 
 const apiKey = 'zu21V7xO4Yu9ny1QVq7HsrYIAEG0p015yi747MxvjUHw9Hk7de60VPxIRBA0gYRN';
-export default function initialize() {
+export default function initialize(eventKey: string) {
     console.log("h");
 
     const firebaseConfig = {
@@ -17,7 +17,6 @@ export default function initialize() {
 
     const app = firebase.initializeApp(firebaseConfig);
     const db = getFirestore(app);
-    const eventKey = (document.getElementById('eventKey') as HTMLInputElement).value;
     const matchNumSelect = document.getElementById('matchNum');
 
     fetch(`https://www.thebluealliance.com/api/v3/event/${eventKey}/matches`, {
@@ -66,47 +65,5 @@ export default function initialize() {
     }, (error) => {
         console.error("Error fetching leaderboard:", error);
         leaderboardList!.innerHTML = '<li>Error loading leaderboard.</li>';
-    });
-
-    document.getElementById('scoutingForm')!.addEventListener('submit', (event) => {
-        event.preventDefault();
-        const eventKey = (document.getElementById('eventKey') as HTMLInputElement).value;
-        const matchNum = (document.getElementById('matchNum') as HTMLInputElement).value;
-        const scoutingSeat = (document.getElementById('scoutingSeat') as HTMLInputElement).value;
-        const name = (document.getElementById('name') as HTMLInputElement).value;
-
-        fetch(`https://www.thebluealliance.com/api/v3/match/${eventKey}_qm${matchNum}`, {
-            headers: {
-                'X-TBA-Auth-Key': apiKey
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            let teamNumber;
-            switch (scoutingSeat) {
-                case 'red1':
-                    teamNumber = data.alliances.red.team_keys[0].replace('frc', '');
-                    break;
-                case 'red2':
-                    teamNumber = data.alliances.red.team_keys[1].replace('frc', '');
-                    break;
-                case 'red3':
-                    teamNumber = data.alliances.red.team_keys[2].replace('frc', '');
-                    break;
-                case 'blue1':
-                    teamNumber = data.alliances.blue.team_keys[0].replace('frc', '');
-                    break;
-                case 'blue2':
-                    teamNumber = data.alliances.blue.team_keys[1].replace('frc', '');
-                    break;
-                case 'blue3':
-                    teamNumber = data.alliances.blue.team_keys[2].replace('frc', '');
-                    break;
-            }
-            window.location.assign(`/matchScouting?team=${teamNumber}&match=${matchNum}&name=${encodeURIComponent(name)}&seat=${scoutingSeat}`);
-        })
-        .catch(error => {
-            console.error('Error fetching match data:', error);
-        });
     });
 }

@@ -18,7 +18,7 @@ export default function Header() {
     };
 
     return (
-        <header className="bg-white dark:bg-black p-4 w-full z-10">
+        <header className="bg-black p-4 w-full z-10">
             <nav id="mainNav" className="flex flex-wrap items-center justify-between w-full md:py-0 text-lg">
                 <h1 className="font-chaos text-chaos text-left uppercase">
                     Chaos Theory
