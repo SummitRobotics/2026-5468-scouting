@@ -22,7 +22,7 @@ async function fetchEventData() {
 
 export default async function Page() {
   const TeamData = await fetchEventData()
-  .then(response => response[0]);
+  .then(response => response![0]);
   console.log(TeamData);
   return (
     <div className="p-4 grid grid-row place-content-center">
