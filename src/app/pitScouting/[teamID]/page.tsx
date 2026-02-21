@@ -1,20 +1,16 @@
 import { getDoc, doc } from "firebase/firestore";
 import { db } from "../../components/firebase";
+import { TeamPitData } from "../../utils/interfaces";
 
 import PitScoutingForm from "./scoutingForm";
 
-interface TeamScoutingData {
-  hopper_capacity?: number;
-  notes?: string;
-  teamID: number;
-  error?: string;
-}
 
-async function fetchTeamData(teamID: string): Promise<TeamScoutingData | null> {
+async function fetchTeamData(teamID: string): Promise<TeamPitData | null> {
   try {
     const teamData = await getDoc(doc(db, 'teams', teamID));
+    console.log("Fetched team data:", teamData);
     if(teamData.exists()) {
-      return teamData.data() as TeamScoutingData;
+      return teamData.data() as TeamPitData;
     }
   } catch (err) {
     console.error("Fetch error:", err);
@@ -27,7 +23,7 @@ export default async function Page({ params }: {
   params: Promise<{ teamID: string }>
 }) {
   const { teamID } = await params;
-  const TeamData: TeamScoutingData = await fetchTeamData(teamID) || { error: "Team not found", teamID: parseInt(teamID) };
+  const TeamData: TeamPitData = await fetchTeamData(teamID) || { error: "Team not found", teamID: parseInt(teamID) };
 
   if(TeamData.error) {
     return (
@@ -41,7 +37,11 @@ export default async function Page({ params }: {
   return (
     <div className="p-4 grid grid-row place-content-center">
       <h1 className="text-center text-3xl p-3">Pit Scouting</h1>
-      <h2 className="text-center text-xl p-3">Team {TeamData.teamID}</h2>
+      <h2 className="text-center text-xl p-3">
+        {TeamData.error ? `Team ${teamID} not found` : `Team ${TeamData.teamID}`}
+      </h2>
+
+      <PitScoutingForm pitData={TeamData} />
     </div>
   );
 }
