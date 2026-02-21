@@ -1,14 +1,12 @@
 "use client";
 import { use, useState } from "react";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, increment } from "firebase/firestore";
 import Image from "next/image";
 import { ScoutingData, FormValues } from "./interfaces";
 import { COMP_ID } from "../components/constants";
 import { FuelCounter, BoolOptions, MultiOptions } from "../components/formElements";
 import { db } from "../components/firebase";
 import Modal from "../components/modal";
-
-// import initialize, {main} from "./form";
 
 const defaultSubmitData:ScoutingData = {
     eventID: COMP_ID,
@@ -70,16 +68,35 @@ function coerceFormValues(formValues: FormValues): Record<string, unknown> {
     Object.entries(formValues).map(([key, value]) => {
       if (typeof value !== 'string') return [key, value];
 
-      // Boolean
       if (value === 'true') return [key, true];
       if (value === 'false') return [key, false];
 
-      // Number (guards against empty strings becoming 0)
       if (value.trim() !== '' && !isNaN(Number(value))) return [key, Number(value)];
 
       return [key, value];
     })
   );
+}
+
+function getRandomMessage() {
+    const messages = [
+        { text: "Please wait...", probability: 50.9999 },
+        { text: "Submitting...", probability: 25 },
+        { text: "\"HYDROGEN PEROXIDE!!!\" - quote Henry Carl Graff 10/31/25 at 3:28 PM", probability: 20 },
+        { text: "Submitting?", probability: 4.5 },
+        { text: "The cake is a lie...", probability: 0.5 },
+        { text: "this message is a .0001% chance!", probability: 0.0001 },
+    ];
+    const totalProbability = messages.reduce((sum, msg) => sum + msg.probability, 0);
+    const random = Math.random() * totalProbability;
+    let cumulative = 0;
+    for (const message of messages) {
+        cumulative += message.probability;
+        if (random <= cumulative) {
+            return message.text;
+        }
+    }
+    return messages[0].text;
 }
 
 const AlertModal = ({ isOpen, onCancel, onConfirm, postData }: { isOpen: boolean; onCancel: () => void; onConfirm: () => void; postData?: FormValues }) => {
@@ -113,7 +130,7 @@ export default function Page({
     const [isModalOpen, setModalOpen] = useState(false);
     const [postData, setPostData] = useState<FormValues>();
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-    // const [defense, setDefense] = useState(false);
+    const [submitMessage, setSubmitMessage] = useState<string>('Submit');
 
     const team = Number(params.team);
     const match = params.match;
@@ -135,21 +152,40 @@ export default function Page({
         }));
 
         setPostData(dataObject);
-
         setModalOpen(true);
     }
 
     async function postFormData() {
         setIsSubmitting(true);
+        setSubmitMessage(getRandomMessage());
 
-        await setDoc(doc(db, "matches", `${COMP_ID}-${match}-${team}`), {
-            ...postData,
-            teamID: team,
-            scout_name: params.name ? params.name.toString() : '',
-        })
-        .catch(error => {
+        const scoutName = params.name ? params.name.toString() : '';
+
+        try {
+            // Submit match data
+            await setDoc(doc(db, "matches", `${COMP_ID}-${match}-${team}`), {
+                ...postData,
+                teamID: team,
+                scout_name: scoutName,
+            });
+
+            // Increment leaderboard for this scout
+            if (scoutName) {
+                await setDoc(
+                    doc(db, "leaderboard_submissions", scoutName),
+                    {
+                        name: scoutName,
+                        submissionCount: increment(1),
+                    },
+                    { merge: true }
+                );
+            }
+
+            window.location.assign('/');
+        } catch (error) {
             console.error('Error submitting form:', error);
-        });
+            setIsSubmitting(false);
+        }
     }
 
     return (
@@ -228,16 +264,6 @@ export default function Page({
                         {value: 0, name:"endgame-climb_level", label:"No climb"},
                         {value: -1, name:"endgame-climb_level", label:"Failed climb"}
                     ]} classes="onField " vertical={true} />
-                    {/* <BoolOptions title="Played Defense" name="teleop-defense" classes="onField" YFunc={() => setDefense(true)} NFunc={() => setDefense(false)}/>
-                    <div className={`${defense ? '' : 'hidden'}`}>
-                        <MultiOptions title="Defensive Skills" options={[
-                            {value: "Slowed good team", label:"Slowed high scoring team"},
-                            {value: "Ineffective", label:"Not effective at blocking station or slowing team down"},
-                            {value: "Broke down", label:"Broke down"},
-                            {value: "Avoided penalties", label:"Avoided penalties"},
-                            {value: "Took penalties", label:"Lots of penalties"},
-                        ]} vertical={true} multiSelect={true} />
-                    </div> */}
                 </div>
 
                 <h2 className="text-center text-2xl">Post Match</h2>
@@ -284,8 +310,9 @@ export default function Page({
                 </div>
 
                 <div className="justify-self-center mt-8 mb-32">
-                    <div id="pleaseWaitMessage" style={{display: "none"}} className="text-blue-900 text-center">Please wait...</div>
-                    <button id="submit" type="submit" disabled={isSubmitting} className="px-4 py-2 bg-chaos text-black rounded-lg shadow-[0_0px_3px_rgba(255,255,255,0.50)]">Submit</button>
+                    <button id="submit" type="submit" disabled={isSubmitting} className="px-4 py-2 bg-chaos text-black rounded-lg shadow-[0_0px_3px_rgba(255,255,255,0.50)]">
+                        {submitMessage}
+                    </button>
                 </div>
             </form>
 
@@ -295,4 +322,4 @@ export default function Page({
             }}/>
         </>
     );
-}``
+}

@@ -68,9 +68,6 @@ export function main() {
         pleaseWaitMessage.style.display = "block";
         console.log("Submit button clicked!");
 
-
-        return; // Temporary return to prevent form submission during testing
-
         const driverSkill = document.querySelector('input[name="skill"]:checked');
         const defense = document.querySelector('input[name="defense"]:checked');
         const speed = document.querySelector('input[name="speed"]:checked');
