@@ -75,3 +75,33 @@ export interface ScoutingData {
 export interface FormValues {
     [key: string]: string | number | boolean | File | undefined;
 }
+
+export interface TeamPitData {
+  width?: number;
+  length?: number;
+  height?: number;
+  weight?: number;
+  intake_type?: string;
+  shooter_type?: string;
+  shooter_count?: number;
+  auto_aim?: boolean;
+  auto_score_count?: number;
+  move_shoot?: boolean;
+  outpost_feed?: boolean;
+  outpost_receive?: boolean;
+  climb_endgame?: boolean;
+  climb_auto?: boolean;
+  drive_type?: string;
+  nav_bump?: boolean;
+  nav_trench?: string;
+  hopper_capacity?: number;
+  quality?: string;
+  electrical_quality?: string;
+  electrical_ports_taped?: boolean;
+  electrical_battery_protected?: boolean;
+  eletrical_loose_wiring?: boolean;
+  pit_condition?: string;
+  notes?: string;
+  teamID: number;
+  error?: string;
+}

@@ -28,7 +28,7 @@ export default function RootLayout({
         <Header />
 
 
-        <Suspense fallback="Loading...">
+        <Suspense fallback={<div className="mt-6 text-chaos flex place-content-center text-3xl font-bold">Loading...</div>}>
           {children}
         </Suspense>
       </body>

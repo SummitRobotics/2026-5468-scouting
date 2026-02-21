@@ -2,7 +2,7 @@
 import { use, useState } from "react";
 import { doc, setDoc } from "firebase/firestore";
 import Image from "next/image";
-import { ScoutingData, FormValues } from "./interfaces";
+import { ScoutingData, FormValues } from "../utils/interfaces";
 import { COMP_ID } from "../components/constants";
 import { FuelCounter, BoolOptions, MultiOptions } from "../components/formElements";
 import { db } from "../components/firebase";

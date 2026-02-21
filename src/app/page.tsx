@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import initialize from "./scripts/main"
 
 const apiKey = 'zu21V7xO4Yu9ny1QVq7HsrYIAEG0p015yi747MxvjUHw9Hk7de60VPxIRBA0gYRN';
-const eventKey = '2025wass';
+const eventKey = '2026week0';
 
 export default function Page() {
     useEffect(() => {
