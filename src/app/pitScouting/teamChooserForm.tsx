@@ -10,7 +10,7 @@ export default function TeamChooserForm({ eventTeams }: { eventTeams: Team[] }) 
   const [teamNumber, setTeamNumber] = useState<number>(0);
 
   return(
-    <form className="p-4 grid grid-row place-content-center" action={`/pitScouting/scouting`} method="get">
+    <form className="p-4 grid grid-row place-content-center" action={`/pitScouting/${teamNumber}`} method="get">
       <select name="team" className="border border-gray-300 rounded" onChange={(e) => setTeamNumber(Number(e.target.value))} defaultValue={teamNumber}>
         <option key="none" value={0} disabled >Select a Team</option>
         {eventTeams.map(team => (
