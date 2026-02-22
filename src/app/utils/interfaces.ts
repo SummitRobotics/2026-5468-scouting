@@ -93,7 +93,7 @@ export interface TeamPitData {
   climb_auto?: boolean;
   drive_type?: string;
   nav_bump?: boolean;
-  nav_trench?: string;
+  nav_trench?: boolean;
   hopper_capacity?: number;
   quality?: string;
   electrical_quality?: string;
@@ -102,6 +102,6 @@ export interface TeamPitData {
   eletrical_loose_wiring?: boolean;
   pit_condition?: string;
   notes?: string;
-  teamID: number;
+  teamID: number | string;
   error?: string;
 }
