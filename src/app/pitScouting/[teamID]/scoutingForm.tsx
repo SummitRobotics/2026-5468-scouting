@@ -180,6 +180,8 @@ export default function PitScoutingForm({pitData}: {pitData: TeamPitData }) {
           </div>
         </div>
 
+        <input type="hidden" name="teamName" value={pitData.teamName} />
+
         <button type="submit" disabled={isPending} className="mt-8 mb-8 bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded font-semibold">
           {isPending ? 'Submitting...' : 'Submit Scout'}
         </button>

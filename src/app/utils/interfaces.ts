@@ -103,5 +103,6 @@ export interface TeamPitData {
   pit_condition?: string;
   notes?: string;
   teamID: number | string;
+  teamName?: string;
   error?: string;
 }

@@ -5,13 +5,14 @@ import PitScoutingForm from "./scoutingForm";
 import { coerceDataTypes } from "../../utils/dataUtils";
 
 
-async function fetchTeamData(teamID: string): Promise<TeamPitData | null> {
+async function fetchTeamData(teamID: string, teamName?: string): Promise<TeamPitData | null> {
   try {
     const teamData = await getDoc(doc(db, 'teams', teamID));
-
+    console.log(teamName);
     if(teamData.exists()) {
       return {
         teamID,
+        teamName,
         ...coerceDataTypes(teamData.data())
       } as TeamPitData;
     }
@@ -22,11 +23,14 @@ async function fetchTeamData(teamID: string): Promise<TeamPitData | null> {
   return null; // Return null if there's an error or if the document doesn't exist
 };
 
-export default async function Page({ params }: {
-  params: Promise<{ teamID: string }>
+export default async function Page({ params, searchParams }: {
+  params: Promise<{ teamID: string }>,
+  searchParams: Promise<{ teamName: string }>
 }) {
   const { teamID } = await params;
-  const TeamData: TeamPitData = await fetchTeamData(teamID) || { teamID: parseInt(teamID) };
+  const { teamName } = await searchParams;
+
+  const TeamData: TeamPitData = await fetchTeamData(teamID, teamName) || { teamID: parseInt(teamID), teamName: teamName };
 
   return (
     <div className="p-4 grid grid-row place-content-center">
