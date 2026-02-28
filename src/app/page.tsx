@@ -85,7 +85,7 @@ export default function Page() {
                     </select>
                 </div>
                 <div className="text-red-500 font-bold text-center">{error}</div>
-                <button type="submit" className="flex justify-self-center">Go to Scouting Form</button>
+                <button type="submit" className="justify-self-center">Go to Scouting Form</button>
 
                 <div>
                     <h2 className="text-center text-xl p-3">Top 3 scouters!</h2>

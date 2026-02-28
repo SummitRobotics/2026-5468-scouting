@@ -67,6 +67,7 @@ button, input[type=number], input[type=text], select, textarea {
   &[type=submit] {
     background-color: var(--color-chaos);
     color: var(--color-black);
+    border-radius: calc(infinity * 1px);
     width: auto;
   }
 

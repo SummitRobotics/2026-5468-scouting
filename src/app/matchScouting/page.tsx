@@ -197,7 +197,7 @@ export default function Page({
 
             <form onSubmit={handleSubmit} className="p-4 z-0" id="container">
                 <h1 className="text-center text-3xl p-3">Match Scouting</h1>
-                <BoolOptions title="Robot on Field" name="on_field" YFunc={() => setOnField(true)} NFunc={() => setOnField(false)} />
+                <BoolOptions title="Robot on Field" name="on_field" defaultValue={true} YFunc={() => setOnField(true)} NFunc={() => setOnField(false)} />
 
                 <div className={`my-4 border rounded-2xl border-green-600 p-4 bg-green-950 auto ${onField ? '' : 'hidden'}`}>
                     <h2 id="aTitle" className="text-center text-2xl pb-4">Auto Phase</h2>
@@ -244,9 +244,9 @@ export default function Page({
                     ]} vertical={true} multiSelect={true}/>
                     <FuelCounter name="teleop-fuel_score" />
                     <BoolOptions name="teleop-out_of_bounds" title="Did robot shoot out of field?" />
-                    <BoolOptions name="teleop-move_shoot" title="Can robot shoot while moving?"  />
-                    <BoolOptions name="teleop-bump" title="Can robot navigate bump?"  />
-                    <BoolOptions name="teleop-trench" title="Can robot navigate trench?"  />
+                    <BoolOptions name="teleop-move_shoot" title="Did robot shoot while moving?"  />
+                    <BoolOptions name="teleop-bump" title="Did robot navigate bump?"  />
+                    <BoolOptions name="teleop-trench" title="Did robot navigate trench?"  />
                 </div>
 
                 <div className={`my-4 border rounded-2xl border-red-600 p-4 bg-red-950 endgame ${onField ? '' : 'hidden'}`}>
