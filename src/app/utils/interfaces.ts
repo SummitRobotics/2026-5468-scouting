@@ -5,11 +5,9 @@ export interface AutoScoutingData {
   fuel_neutral: boolean;
   climb: boolean;
   climb_location: string;
-  fuel_score: number;
 }
 
 export interface TeleopScoutingData {
-  fuelscore: number;
   snowblow_neutral1: boolean;
   snowblow_neutral2: boolean;
   snowblow_alliance: boolean;
@@ -23,7 +21,6 @@ export interface TeleopScoutingData {
 }
 
 export interface EndgameScoutingData {
-  fuel_score: number;
   climb_level: number;
   climb_location: string;
 }
@@ -44,7 +41,6 @@ export interface ScoutingData {
   start_position: string;
   rank_points: number;
   notes: string;
-  'teleop-fuel_score': number;
   'teleop-snowblow_neutral1': boolean;
   'teleop-snowblow_neutral2': boolean;
   'teleop-snowblow_alliance': boolean;
@@ -55,9 +51,10 @@ export interface ScoutingData {
   'teleop-driver_skill': number;
   'teleop-defense': boolean;
   'teleop-speed': number;
-  'endgame-fuel_score': number;
   'endgame-climb_level': number;
   'endgame-climb_location': string;
+  'shooting_speed': number,
+  'missed_shots': number
   'assessment-died': boolean;
   'assessment-tipped': boolean;
   'assessment-fuel_spill': boolean;
@@ -69,7 +66,6 @@ export interface ScoutingData {
   'auto-fuel_neutral': boolean;
   'auto-climb': boolean;
   'auto-climb_location': string;
-  'auto-fuel_score': number;
 }
 
 export interface FormValues {
