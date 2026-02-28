@@ -131,7 +131,7 @@ export default function Page({
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
     const [submitMessage, setSubmitMessage] = useState<string>('Submit');
 
-    const team = Number(params.team);
+    const team = (COMP_ID === 'practice') ? params.team : Number(params.team);
     const match = params.match;
     const seat = params.seat;
     const fieldImg = (seat?.includes('blue')) ? '/images/field_top_blue_home.png' : '/images/field_top_red_home.png';

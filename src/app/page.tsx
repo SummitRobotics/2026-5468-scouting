@@ -1,13 +1,25 @@
 "use client";
 import {useEffect, useState} from "react";
+import { COMP_ID } from "./components/constants";
 import initialize from "./scripts/main"
 
 const apiKey = 'zu21V7xO4Yu9ny1QVq7HsrYIAEG0p015yi747MxvjUHw9Hk7de60VPxIRBA0gYRN';
-const eventKey = '2026week0';
+
+interface practiceTeam {
+    [key: string]: string;
+};
+const practiceTeams = {
+    red1: '5468-a',
+    red2: '5468-b',
+    red3: '5468-c',
+    blue1: '5468-d',
+    blue2: '5468-e',
+    blue3: '5468-f',
+} as practiceTeam;
 
 export default function Page() {
     useEffect(() => {
-        initialize(eventKey);
+        initialize(COMP_ID);
     }, []);
     const [error, setError] = useState<string | null>(null);
 
@@ -43,28 +55,32 @@ export default function Page() {
         const alliance = seatCollection[0];
         const seatNum = seatCollection[1];
 
+        if(formData.get('COMP_ID') === 'practice') {
+            const team = practiceTeams[`${alliance}${seatNum}`];
+            window.location.assign(`/matchScouting?team=${team}&match=${formData.get('matchNum')}&name=${encodeURIComponent(formData.get('scouterName')!.toString())}`);
+        } else {
+            fetch(`https://www.thebluealliance.com/api/v3/match/${formData.get('COMP_ID')}_qm${formData.get('matchNum')}`, {
+                headers: {
+                    'X-TBA-Auth-Key': apiKey
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const teamNumber = data.alliances[alliance].team_keys[seatNum].replace('frc', '');
 
-        fetch(`https://www.thebluealliance.com/api/v3/match/${formData.get('eventKey')}_qm${formData.get('matchNum')}`, {
-            headers: {
-                'X-TBA-Auth-Key': apiKey
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            const teamNumber = data.alliances[alliance].team_keys[seatNum].replace('frc', '');
-
-            window.location.assign(`/matchScouting?team=${teamNumber}&match=${formData.get('matchNum')}&name=${encodeURIComponent(formData.get('scouterName')!.toString())}`);
-        })
-        .catch(error => {
-            console.error('Error fetching match data:', error);
-        });
+                window.location.assign(`/matchScouting?team=${teamNumber}&match=${formData.get('matchNum')}&name=${encodeURIComponent(formData.get('scouterName')!.toString())}`);
+            })
+            .catch(error => {
+                console.error('Error fetching match data:', error);
+            });
+        }
     }
 
     return (
         <div className="p-4 grid grid-row place-content-center">
             <h1 className="text-center text-3xl p-3">Select Match<br />and Scouting Seat</h1>
             <form action={handleSubmit} className="text-center">
-                <input type="hidden" name="eventKey" value={eventKey} />
+                <input type="hidden" name="COMP_ID" value={COMP_ID} />
                 <div className="flex place-items-center">
                     <label htmlFor="name" className="text-lg font-bold place-self-center">Name:</label>
                     <input type="text" id="name" name="scouterName" />

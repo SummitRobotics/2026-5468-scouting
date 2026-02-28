@@ -1,8 +1,20 @@
 import firebase from "firebase/compat/app";
 import { collection, getFirestore, query, orderBy, limit, onSnapshot } from "firebase/firestore"
-
+import { COMP_ID } from "../components/constants";
 const apiKey = 'zu21V7xO4Yu9ny1QVq7HsrYIAEG0p015yi747MxvjUHw9Hk7de60VPxIRBA0gYRN';
-export default function initialize(eventKey: string) {
+const practiceMatches = [
+    {match_number: 1},
+    {match_number: 2},
+    {match_number: 3},
+    {match_number: 4},
+    {match_number: 5},
+    {match_number: 6},
+    {match_number: 7},
+    {match_number: 8},
+    {match_number: 9},
+];
+
+export default function initialize() {
     console.log("h");
 
     const firebaseConfig = {
@@ -18,28 +30,36 @@ export default function initialize(eventKey: string) {
     const db = getFirestore(app);
     const matchNumSelect = document.getElementById('matchNum');
 
-    fetch(`https://www.thebluealliance.com/api/v3/event/${eventKey}/matches`, {
-        headers: {
-            'X-TBA-Auth-Key': apiKey
-        }
-    })
-    .then(response => response.json())
-    .then(matches => {
-        console.log(matches);
-        (matches as Array<Record<string, any>>)
-            .filter(match => match.comp_level === 'qm') // Only add qualification matches
-            .sort((a, b) => a.match_number - b.match_number) // Sort matches by match number
-            .forEach(match => {
-                const option = document.createElement('option');
-                option.value = match.match_number;
-                option.textContent = match.match_number;
-                matchNumSelect!.appendChild(option);
-            });
-    })
-    .catch(error => {
-        console.error('Error fetching matches:', error);
-    });
-
+    if(COMP_ID === 'practice') {
+        practiceMatches.forEach(match => {
+            const option = document.createElement('option');
+            option.value = match.match_number.toString();
+            option.textContent = match.match_number.toString();
+            matchNumSelect!.appendChild(option);
+        })
+    }else{
+        fetch(`https://www.thebluealliance.com/api/v3/event/${COMP_ID}/matches`, {
+            headers: {
+                'X-TBA-Auth-Key': apiKey
+            }
+        })
+        .then(response => response.json())
+        .then(matches => {
+            console.log(matches);
+            (matches as Array<Record<string, any>>)
+                .filter(match => match.comp_level === 'qm') // Only add qualification matches
+                .sort((a, b) => a.match_number - b.match_number) // Sort matches by match number
+                .forEach(match => {
+                    const option = document.createElement('option');
+                    option.value = match.match_number;
+                    option.textContent = match.match_number;
+                    matchNumSelect!.appendChild(option);
+                });
+        })
+        .catch(error => {
+            console.error('Error fetching matches:', error);
+        });
+    }
 
     const leaderboardRef = collection(db, "leaderboard_submissions");
     const q = query(leaderboardRef, orderBy("submissionCount", "desc"), limit(3));

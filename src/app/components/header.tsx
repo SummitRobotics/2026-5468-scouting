@@ -32,6 +32,8 @@ export default function Header() {
                     <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 space-y-4 md:flex-row md:space-x-4 md:space-y-0 md:mt-0 items-center">
                         {links.map((link) => {
                             const isActive = pathname === link.href;
+                            console.log(`Pathname: ${pathname}`);
+                            console.log(`link: ${link.href}`);
                             return (
                                 <li key={link.href}>
                                     <Link
