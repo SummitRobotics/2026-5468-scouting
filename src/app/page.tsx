@@ -63,7 +63,7 @@ export default function Page() {
     return (
         <div className="p-4 grid grid-row place-content-center">
             <h1 className="text-center text-3xl p-3">Select Match<br />and Scouting Seat</h1>
-            <form action={handleSubmit}>
+            <form action={handleSubmit} className="text-center">
                 <input type="hidden" name="eventKey" value={eventKey} />
                 <div className="flex place-items-center">
                     <label htmlFor="name" className="text-lg font-bold place-self-center">Name:</label>
@@ -85,15 +85,15 @@ export default function Page() {
                     </select>
                 </div>
                 <div className="text-red-500 font-bold text-center">{error}</div>
-                <button type="submit" className="justify-self-center">Go to Scouting Form</button>
-
-                <div>
-                    <h2 className="text-center text-xl p-3">Top 3 scouters!</h2>
-                    <ol id="leaderboardList" className="text-center">
-                        <li>Loading...</li>
-                    </ol>
-                </div>
+                <button type="submit" className="">Go to Scouting Form</button>
             </form>
+
+            <div>
+                <h2 className="text-center text-xl p-3">Top 3 scouters!</h2>
+                <ol id="leaderboardList" className="text-center">
+                    <li>Loading...</li>
+                </ol>
+            </div>
         </div>
     );
 }
