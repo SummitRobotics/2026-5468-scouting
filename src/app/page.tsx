@@ -19,7 +19,7 @@ const practiceTeams = {
 
 export default function Page() {
     useEffect(() => {
-        initialize(COMP_ID);
+        initialize();
     }, []);
     const [error, setError] = useState<string | null>(null);
 
