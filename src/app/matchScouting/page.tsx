@@ -20,8 +20,6 @@ const defaultSubmitData:ScoutingData = {
     'auto-fuel_neutral': false,
     'auto-climb': false,
     'auto-climb_location': '',
-    'auto-fuel_score': 0,
-    'teleop-fuel_score': 0,
     'teleop-snowblow_neutral1': false,
     'teleop-snowblow_neutral2': false,
     'teleop-snowblow_alliance': false,
@@ -32,9 +30,10 @@ const defaultSubmitData:ScoutingData = {
     'teleop-driver_skill': 0,
     'teleop-defense': false,
     'teleop-speed': 0,
-    'endgame-fuel_score': 0,
     'endgame-climb_level': 0,
     'endgame-climb_location': '',
+    'shooting_speed': 0,
+    'missed_shots': 0,
     'assessment-died': false,
     'assessment-tipped': false,
     'assessment-fuel_spill': false,
@@ -221,7 +220,7 @@ export default function Page({
                         {value: "neutral", name: "auto-fuel_neutral", label:"Neutral Zone"},
                         {value: "none", name: "auto-fuel_none", label:"Did not pick up fuel"}
                     ]} classes="onField" vertical={true} multiSelect={true} />
-                    <FuelCounter name="auto-fuel_score" />
+                    {/*<FuelCounter name="auto-fuel_score" />*/}
                     <BoolOptions title="Did robot climb?" name="auto-climb" classes="onField" />
                     <MultiOptions title="Climb Location" name="auto-climb_location" options={[
                         {value: "left", label:"Left"},
@@ -242,7 +241,7 @@ export default function Page({
                         {value: 4, name: "teleop-snowblow_neutral1", label:"Neutral 1 to Home Zone"},
                         {value: 0, name: "teleop-snowblow_none", label:"Robot did not snowblow"}
                     ]} vertical={true} multiSelect={true}/>
-                    <FuelCounter name="teleop-fuel_score" />
+                    {/*<FuelCounter name="teleop-fuel_score" />*/}
                     <BoolOptions name="teleop-out_of_bounds" title="Did robot shoot out of field?" />
                     <BoolOptions name="teleop-move_shoot" title="Did robot shoot while moving?"  />
                     <BoolOptions name="teleop-bump" title="Did robot navigate bump?"  />
@@ -251,7 +250,7 @@ export default function Page({
 
                 <div className={`my-4 border rounded-2xl border-red-600 p-4 bg-red-950 endgame ${onField ? '' : 'hidden'}`}>
                     <h2 id="egTitle" className="text-center text-2xl pb-4 onField">End Game</h2>
-                    <FuelCounter name="endgame-fuel_score" />
+                    {/*<FuelCounter name="endgame-fuel_score" />*/}
                     <MultiOptions title="Climb Location" name="endgame-climb_location" options={[
                         {value: "left", label:"Left"},
                         {value: "middle", label:"Middle"},
@@ -269,6 +268,20 @@ export default function Page({
                 <h2 className="text-center text-2xl">Post Match</h2>
 
                 <div className={`${onField ? '' : 'hidden'}`}>
+                    <MultiOptions title="Shooting Speed" name="shooting_speed" options={[
+                        {value: 1, label:"Slow"},
+                        {value: 3, label:"Medium"},
+                        {value: 5, label:"Fast"},
+                    ]} vertical={false} />
+
+                    <MultiOptions title="Missed Shots" name="missed_shots" options={[
+                        {value: 1, label:"Always"},
+                        {value: 2, label:"Almost Always"},
+                        {value: 3, label:"Half of Shots"},
+                        {value: 4, label:"Almost Never"},
+                        {value: 5, label:"Never"}
+                    ]} vertical={true} />
+
                     <MultiOptions title="Driver Skill" name="teleop-driver_skill" options={[
                         {value: 4, label:"Very Effective"},
                         {value: 3, label:"Effective"},
