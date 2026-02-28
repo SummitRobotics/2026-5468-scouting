@@ -189,7 +189,7 @@ export default function Page({
 
     return (
         <>
-            <div className={`z-10 sticky top-0 flex justify-center bg-white dark:bg-black p-4 shadow-md space-x-4 ${teamColor}`}>
+            <div className={`z-10 sticky top-0 flex justify-center bg-black p-4 shadow-md space-x-4 ${teamColor}`}>
                 <div className="font-bold">Match #{match}</div>
                 <div className="font-bold">Team #{team}</div>
             </div>
