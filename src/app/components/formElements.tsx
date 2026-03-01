@@ -24,7 +24,7 @@ export function MultiOptions({title, options, classes, id, name, vertical, multi
     const inputType: string = (multiSelect) ? "checkbox" : "radio";
 
     return (
-        <div id={ id } className="border-t-1 border-gray-400/30 py-4">
+        <div id={ id } className={`border-t-1 border-gray-400/30 py-4 ${classes}`}>
             <h3 className="text-center text-lg">{ title }</h3>
 
             <div className={`grid ${vertical ? 'grid-cols-1' : 'grid-cols-3 place-items-center'} gap-4 pt-4 ${classes}`}>
@@ -49,7 +49,7 @@ export function BoolOptions({title, name, YFunc, NFunc, classes, id, defaultValu
     }
 
     return (
-        <div id={ id } className="border-t-1 border-gray-400/30 py-4">
+        <div id={ id } className={`border-t-1 border-gray-400/30 py-4 ${classes}`}>
             <h3 className="text-center text-lg">{ title }</h3>
             <div className="grid grid-cols-2 gap-4 pt-4 place-items-center">
                 <div className="flex place-items-center">
@@ -60,7 +60,7 @@ export function BoolOptions({title, name, YFunc, NFunc, classes, id, defaultValu
                     }}/> <label htmlFor={`${title}Y`}>Yes</label>
                 </div>
                 <div className="flex place-items-center">
-                     <input type="radio" defaultChecked={!defaultValue} className="mr-4 shrink-0" name={name} id={`${title}N`} value="false" onClick={() => {
+                     <input type="radio" defaultChecked={defaultValue === false} className="mr-4 shrink-0" name={name} id={`${title}N`} value="false" onClick={() => {
                          if (NFunc) {
                              NFunc()
                          }
