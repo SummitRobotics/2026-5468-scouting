@@ -148,11 +148,13 @@ textarea {
   .confirm-btn {
     background-color: var(--color-chaos);
     color: var(--color-black);
+    border-radius: calc(infinity * 1px);
   }
 
   .cancel-btn {
     background-color: var(--color-summit-grey);
     color: var(--color-black);
+    border-radius: calc(infinity * 1px);
 
     &:focus {
       outline: 0.1em solid var(--color-summit-grey-800);

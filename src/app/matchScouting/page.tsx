@@ -108,10 +108,10 @@ const AlertModal = ({ isOpen, onCancel, onConfirm, postData }: { isOpen: boolean
                 <p className="text-center text-lg text-red-500">Ranking points are set to zero.</p>
             )}
             <div className="flex pt-4 justify-center space-x-4">
-                <button className="confirm-btn mt-4 shadow-[0_0px_3px_rgba(255,255,255,0.50)]" onClick={onConfirm}>
+                <button className="confirm-btn mt-4 shadow-[0_0px_3px_rgba(255,255,255,0.50)] rounded-full" onClick={onConfirm}>
                     Yes, submit
                 </button>
-                <button className="cancel-btn mt-4 shadow-[0_0px_3px_rgba(255,255,255,0.50)]" onClick={onCancel}>
+                <button className="cancel-btn mt-4 shadow-[0_0px_3px_rgba(255,255,255,0.50)] rounded-full" onClick={onCancel}>
                     No, go back
                 </button>
             </div>
@@ -130,6 +130,8 @@ export default function Page({
     const [postData, setPostData] = useState<FormValues>();
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
     const [submitMessage, setSubmitMessage] = useState<string>('Submit');
+    const [autoClimb, setAutoClimb] = useState(true);
+    const [failedAutoClimb, setFailedAutoClimb] = useState(false);
 
     const team = (COMP_ID === 'practice') ? params.team : Number(params.team);
     const match = params.match;
@@ -190,8 +192,8 @@ export default function Page({
     return (
         <>
             <div className={`z-10 sticky top-0 flex justify-center bg-black p-4 shadow-md space-x-4 ${teamColor}`}>
-                <div className="font-bold">Match #{match}</div>
-                <div className="font-bold">Team #{team}</div>
+                <div className="font-bold text-lg">Match #{match}</div>
+                <div className="font-bold text-lg">Team #{team}</div>
             </div>
 
             <form onSubmit={handleSubmit} className="p-4 z-0" id="container">
@@ -204,29 +206,22 @@ export default function Page({
                         {value: "left", label:"Left"},
                         {value: "middle", label:"Middle"},
                         {value: "right", label:"Right"}
-                    ]} classes="onField" />
-                    <BoolOptions title="Left starting position" name="auto-moved" classes="onField" YFunc={() => {
-                        document.querySelectorAll(".auto .onField ~ .onField").forEach((element) => {
-                            (element as HTMLElement).style.display = "table";
-                        });
-                    }} NFunc={() => {
-                        document.querySelectorAll(".auto .onField ~ .onField").forEach((element) => {
-                            (element as HTMLElement).style.display = "none";
-                        });
-                    }} />
+                    ]} />
+                    <BoolOptions title="Moved from starting position" name="auto-moved" />
                     <MultiOptions title="Picked up fuel from:" options={[
                         {value: "depot", name: "auto-fuel_depot", label:"Depot"},
                         {value: "outpost", name: "auto-fuel_outpost", label:"Outpost"},
                         {value: "neutral", name: "auto-fuel_neutral", label:"Neutral Zone"},
-                        {value: "none", name: "auto-fuel_none", label:"Did not pick up fuel"}
-                    ]} classes="onField" vertical={true} multiSelect={true} />
+                        {value: "none", name: "auto-fuel_none", label:"Did Not Pick Up Fuel"}
+                    ]} vertical={true} multiSelect={true} />
                     {/*<FuelCounter name="auto-fuel_score" />*/}
-                    <BoolOptions title="Did robot climb?" name="auto-climb" classes="onField" />
-                    <MultiOptions title="Climb Location" name="auto-climb_location" options={[
+                    <BoolOptions title="Failed Auto Climb" name="auto-climb_failed" YFunc={() => setFailedAutoClimb(true)} NFunc={() => setFailedAutoClimb(false)} />
+                    <BoolOptions title="Climbed" name="auto-climb" classes={`${failedAutoClimb ? 'hidden' : ''}`} YFunc={() => setAutoClimb(true)} NFunc={() => setAutoClimb(false)} />
+                    <MultiOptions title="Climb Location" name="auto-climb_location" classes={`${autoClimb ? '' : 'hidden'}`} options={[
                         {value: "left", label:"Left"},
                         {value: "middle", label:"Middle"},
                         {value: "right", label:"Right"}
-                    ]} classes="onField" />
+                    ]} />
                 </div>
 
                 <div className={`my-4 border rounded-2xl border-blue-600 p-4 bg-blue-950 teleop ${onField ? '' : 'hidden'}`}>
@@ -239,30 +234,30 @@ export default function Page({
                         {value: 2, name: "teleop-snowblow_alliance", label:"Alliance Zone to Alliance Zone"},
                         {value: 3, name: "teleop-snowblow_neutral2", label:"Neutral 2 to Home Zone"},
                         {value: 4, name: "teleop-snowblow_neutral1", label:"Neutral 1 to Home Zone"},
-                        {value: 0, name: "teleop-snowblow_none", label:"Robot did not snowblow"}
+                        {value: 0, name: "teleop-snowblow_none", label:"Did Not Snowblow"}
                     ]} vertical={true} multiSelect={true}/>
                     {/*<FuelCounter name="teleop-fuel_score" />*/}
-                    <BoolOptions name="teleop-out_of_bounds" title="Did robot shoot out of field?" />
-                    <BoolOptions name="teleop-move_shoot" title="Did robot shoot while moving?"  />
-                    <BoolOptions name="teleop-bump" title="Did robot navigate bump?"  />
-                    <BoolOptions name="teleop-trench" title="Did robot navigate trench?"  />
+                    <BoolOptions name="teleop-out_of_bounds" title="Shot out of Field" />
+                    <BoolOptions name="teleop-move_shoot" title="Shot While Moving"  />
+                    <BoolOptions name="teleop-bump" title="Navigated Bump"  />
+                    <BoolOptions name="teleop-trench" title="Navigated Trench"  />
                 </div>
 
                 <div className={`my-4 border rounded-2xl border-red-600 p-4 bg-red-950 endgame ${onField ? '' : 'hidden'}`}>
-                    <h2 id="egTitle" className="text-center text-2xl pb-4 onField">End Game</h2>
+                    <h2 id="egTitle" className="text-center text-2xl pb-4">End Game</h2>
                     {/*<FuelCounter name="endgame-fuel_score" />*/}
                     <MultiOptions title="Climb Location" name="endgame-climb_location" options={[
                         {value: "left", label:"Left"},
                         {value: "middle", label:"Middle"},
                         {value: "right", label:"Right"}
-                    ]} classes="onField" />
+                    ]} />
                     <MultiOptions title="Climb Level" name="endgame-climb_level" options={[
                         {value: 1, name:"endgame-climb_level", label:"Level 1"},
                         {value: 2, name:"endgame-climb_level", label:"Level 2"},
                         {value: 3, name:"endgame-climb_level", label:"Level 3"},
-                        {value: 0, name:"endgame-climb_level", label:"No climb"},
-                        {value: -1, name:"endgame-climb_level", label:"Failed climb"}
-                    ]} classes="onField " vertical={true} />
+                        {value: 0, name:"endgame-climb_level", label:"Did Not Attempt Climb"},
+                        {value: -1, name:"endgame-climb_level", label:"Failed Climb"}
+                    ]} vertical={true} />
                 </div>
 
                 <h2 className="text-center text-2xl">Post Match</h2>
@@ -275,11 +270,11 @@ export default function Page({
                     ]} vertical={false} />
 
                     <MultiOptions title="Missed Shots" name="missed_shots" options={[
-                        {value: 1, label:"Always"},
-                        {value: 2, label:"Almost Always"},
-                        {value: 3, label:"Half of Shots"},
-                        {value: 4, label:"Almost Never"},
-                        {value: 5, label:"Never"}
+                        {value: 1, label:"Always Missed"},
+                        {value: 2, label:"Missed More Than Half"},
+                        {value: 3, label:"Missed Half of Shots"},
+                        {value: 4, label:"Missed Less Than Half"},
+                        {value: 5, label:"Never Missed"}
                     ]} vertical={true} />
 
                     <MultiOptions title="Driver Skill" name="teleop-driver_skill" options={[
@@ -294,14 +289,14 @@ export default function Page({
                         {value: "slow", label:"Slow"},
                         {value: "medium", label:"Medium"},
                         {value: "fast", label:"Fast"}
-                    ]} classes="onField" />
+                    ]} />
 
                     <MultiOptions title="Robot Assessment" options={[
-                        {value: "died", name: "assessment-died", label:"Died / Immobile"},
-                        {value: "tipped", name: "assessment-tipped", label:"Tipped over"},
-                        {value: "spilled", name: "assessment-spilled", label:"Spilled fuel on bump"},
-                        {value: "stuck: fuel", name: "assessment-stuck_fuel", label:"Stuck on fuel"},
-                        {value: "stuck: bump", name: "assessment-stuck_bump", label:"Stuck on bump"}
+                        {value: "died", name: "assessment-died", label:"Died / Immobile On Field"},
+                        {value: "tipped", name: "assessment-tipped", label:"Tipped Over"},
+                        {value: "spilled", name: "assessment-spilled", label:"Spilled Fuel On Bump"},
+                        {value: "stuck: fuel", name: "assessment-stuck_fuel", label:"Stuck On Fuel"},
+                        {value: "stuck: bump", name: "assessment-stuck_bump", label:"Stuck On Bump"}
                     ]} vertical={true} multiSelect={true} />
 
                 </div>
