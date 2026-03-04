@@ -113,10 +113,6 @@ export default function PitScoutingForm({pitData}: {pitData: TeamPitData }) {
 
           <BoolOptions title="Can Move While Shooting" name="move_shoot" defaultValue={state.data?.move_shoot || false} />
 
-          <div className="mt-4">
-            <label className="block text-sm font-medium mb-2">Auto Score Count</label>
-            <input type="number" name="auto_score_count" defaultValue={state.data?.auto_score_count || undefined} className="px-3 py-2 bg-green-900 border border-green-600 rounded" />
-          </div>
         </div>
 
         {/* On-Field Capabilities */}
@@ -128,16 +124,6 @@ export default function PitScoutingForm({pitData}: {pitData: TeamPitData }) {
           <BoolOptions title="Can Navigate Bump" name="nav_bump" defaultValue={state.data?.nav_bump || false} />
           <BoolOptions title="Can Navigate Trench" name="nav_trench" defaultValue={state.data?.nav_trench || false} />
 
-        </div>
-
-
-
-        {/* Climbing */}
-        <div className="my-4 border rounded-2xl border-red-600 p-4 bg-red-950">
-          <h2 className="text-center text-2xl pb-4">Climbing Capabilities</h2>
-
-          <BoolOptions title="Can Climb in End Game" name="climb_endgame" defaultValue={state.data?.climb_endgame || false} />
-          <BoolOptions title="Can Climb in Auto" name="climb_auto" defaultValue={state.data?.climb_auto || false} />
         </div>
 
         {/* Build Quality */}
@@ -157,6 +143,21 @@ export default function PitScoutingForm({pitData}: {pitData: TeamPitData }) {
             {value: "average", selected: (!!state.data && state.data?.electrical_quality == "average"), label: "Average"},
             {value: "poor", selected: (!!state.data && state.data?.electrical_quality == "poor"), label: "Poor"}
           ]} vertical={true} />
+
+          <MultiOptions title="Repairability" name="repairability" options={[
+            {value: "excellent", selected: (!!state.data && state.data?.repairability == "excellent"), label: "Excellent"},
+            {value: "good", selected: (!!state.data && state.data?.repairability == "good"), label: "Good"},
+            {value: "average", selected: (!!state.data && state.data?.repairability == "average"), label: "Average"},
+            {value: "poor", selected: (!!state.data && state.data?.repairability == "poor"), label: "Poor"}
+          ]} vertical={true} />
+
+          <MultiOptions title="Intake Quality" name="intake_quality" options={[
+            {value: "excellent", selected: (!!state.data && state.data?.intake_quality == "excellent"), label: "Excellent"},
+            {value: "good", selected: (!!state.data && state.data?.intake_quality == "good"), label: "Good"},
+            {value: "average", selected: (!!state.data && state.data?.intake_quality == "average"), label: "Average"},
+            {value: "poor", selected: (!!state.data && state.data?.intake_quality == "poor"), label: "Poor"}
+          ]} vertical={true} />
+
 
           <BoolOptions title="Electrical Ports Taped" name="electrical_ports_taped" defaultValue={state.data?.electrical_ports_taped || false} />
 
