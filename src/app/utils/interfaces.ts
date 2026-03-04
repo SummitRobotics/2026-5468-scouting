@@ -65,6 +65,7 @@ export interface ScoutingData {
   'auto-fuel_outpost': boolean;
   'auto-fuel_neutral': boolean;
   'auto-climb': boolean;
+  'auto-climb_failed': boolean;
   'auto-climb_location': string;
 }
 

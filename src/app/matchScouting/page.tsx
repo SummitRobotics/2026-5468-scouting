@@ -19,6 +19,7 @@ const defaultSubmitData:ScoutingData = {
     'auto-fuel_outpost': false,
     'auto-fuel_neutral': false,
     'auto-climb': false,
+    'auto-climb_failed': false,
     'auto-climb_location': '',
     'teleop-snowblow_neutral1': false,
     'teleop-snowblow_neutral2': false,
@@ -146,6 +147,10 @@ export default function Page({
         const formData = new FormData(event.target as HTMLFormElement);
 
         if (isSubmitting) { return; }
+
+        if (formData.get('auto-climb_failed') === 'true') {
+            formData.set('auto-climb', 'true');
+        }
 
         const dataObject = nestByPrefix(coerceFormValues({
             ...defaultSubmitData,
