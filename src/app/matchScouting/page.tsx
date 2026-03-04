@@ -24,6 +24,7 @@ const defaultSubmitData:ScoutingData = {
     'teleop-snowblow_neutral1': false,
     'teleop-snowblow_neutral2': false,
     'teleop-snowblow_alliance': false,
+    'teleop-snowblow_none': false,
     'teleop-out_of_bounds': false,
     'teleop-move_shoot': false,
     'teleop-bump': false,
@@ -133,6 +134,8 @@ export default function Page({
     const [submitMessage, setSubmitMessage] = useState<string>('Submit');
     const [autoClimb, setAutoClimb] = useState(true);
     const [failedAutoClimb, setFailedAutoClimb] = useState(false);
+    const [failedEndgameClimb, setFailedEndgameClimb] = useState(false);
+    const [noAutoMove, setNoAutoMove] = useState(false);
 
     const team = (COMP_ID === 'practice') ? params.team : Number(params.team);
     const match = params.match;
@@ -212,17 +215,17 @@ export default function Page({
                         {value: "middle", label:"Middle"},
                         {value: "right", label:"Right"}
                     ]} />
-                    <BoolOptions title="Moved from starting position" name="auto-moved" />
-                    <MultiOptions title="Picked up fuel from:" options={[
-                        {value: "depot", name: "auto-fuel_depot", label:"Depot"},
-                        {value: "outpost", name: "auto-fuel_outpost", label:"Outpost"},
-                        {value: "neutral", name: "auto-fuel_neutral", label:"Neutral Zone"},
-                        {value: "none", name: "auto-fuel_none", label:"Did Not Pick Up Fuel"}
+                    <BoolOptions title="Moved from starting position" name="auto-moved" YFunc={() => setNoAutoMove(false)} NFunc={() => setNoAutoMove(true)}/>
+                    <MultiOptions title="Picked up fuel from:" classes={`${noAutoMove ? 'hidden' : ''}`} options={[
+                        {value: "true", name: "auto-fuel_depot", label:"Depot"},
+                        {value: "true", name: "auto-fuel_outpost", label:"Outpost"},
+                        {value: "true", name: "auto-fuel_neutral", label:"Neutral Zone"},
+                        {value: "true", name: "auto-fuel_none", label:"Did Not Pick Up Fuel"}
                     ]} vertical={true} multiSelect={true} />
                     {/*<FuelCounter name="auto-fuel_score" />*/}
-                    <BoolOptions title="Failed Auto Climb" name="auto-climb_failed" YFunc={() => setFailedAutoClimb(true)} NFunc={() => setFailedAutoClimb(false)} />
-                    <BoolOptions title="Climbed" name="auto-climb" classes={`${failedAutoClimb ? 'hidden' : ''}`} YFunc={() => setAutoClimb(true)} NFunc={() => setAutoClimb(false)} />
-                    <MultiOptions title="Climb Location" name="auto-climb_location" classes={`${autoClimb ? '' : 'hidden'}`} options={[
+                    <BoolOptions title="Failed Auto Climb" name="auto-climb_failed" classes={`${noAutoMove ? 'hidden' : ''}`} YFunc={() => setFailedAutoClimb(true)} NFunc={() => setFailedAutoClimb(false)} />
+                    <BoolOptions title="Climbed" name="auto-climb" classes={`${failedAutoClimb || noAutoMove ? 'hidden' : ''}`} YFunc={() => setAutoClimb(true)} NFunc={() => setAutoClimb(false)} />
+                    <MultiOptions title="Climb (or Attempted Climb) Location" name="auto-climb_location" classes={`${((autoClimb && !noAutoMove) || (!autoClimb && noAutoMove)) ? '' : 'hidden'}`} options={[
                         {value: "left", label:"Left"},
                         {value: "middle", label:"Middle"},
                         {value: "right", label:"Right"}
@@ -236,10 +239,10 @@ export default function Page({
                         <Image src={fieldImg} alt="Field Diagram" className="fieldDiagram" width={0} height={0} sizes="100vw" style={{ width: '100%', height: 'auto' }}/>
                     </div>
                     <MultiOptions title="Snowblow/Pass From:" options={[
-                        {value: 2, name: "teleop-snowblow_alliance", label:"Alliance Zone to Alliance Zone"},
-                        {value: 3, name: "teleop-snowblow_neutral2", label:"Neutral 2 to Home Zone"},
-                        {value: 4, name: "teleop-snowblow_neutral1", label:"Neutral 1 to Home Zone"},
-                        {value: 0, name: "teleop-snowblow_none", label:"Did Not Snowblow"}
+                        {value: "true", name: "teleop-snowblow_alliance", label:"Alliance Zone to Alliance Zone"},
+                        {value: "true", name: "teleop-snowblow_neutral2", label:"Neutral 2 to Home Zone"},
+                        {value: "true", name: "teleop-snowblow_neutral1", label:"Neutral 1 to Home Zone"},
+                        {value: "true", name: "teleop-snowblow_none", label:"Did Not Snowblow"}
                     ]} vertical={true} multiSelect={true}/>
                     {/*<FuelCounter name="teleop-fuel_score" />*/}
                     <BoolOptions name="teleop-out_of_bounds" title="Shot out of Field" />
@@ -251,17 +254,17 @@ export default function Page({
                 <div className={`my-4 border rounded-2xl border-red-600 p-4 bg-red-950 endgame ${onField ? '' : 'hidden'}`}>
                     <h2 id="egTitle" className="text-center text-2xl pb-4">End Game</h2>
                     {/*<FuelCounter name="endgame-fuel_score" />*/}
+                    <BoolOptions title="Failed Endgame Climb" name="endgame-climb_failed" YFunc={() => setFailedEndgameClimb(true)} NFunc={() => setFailedEndgameClimb(false)} />
                     <MultiOptions title="Climb Location" name="endgame-climb_location" options={[
                         {value: "left", label:"Left"},
                         {value: "middle", label:"Middle"},
                         {value: "right", label:"Right"}
                     ]} />
-                    <MultiOptions title="Climb Level" name="endgame-climb_level" options={[
-                        {value: 1, name:"endgame-climb_level", label:"Level 1"},
-                        {value: 2, name:"endgame-climb_level", label:"Level 2"},
-                        {value: 3, name:"endgame-climb_level", label:"Level 3"},
-                        {value: 0, name:"endgame-climb_level", label:"Did Not Attempt Climb"},
-                        {value: -1, name:"endgame-climb_level", label:"Failed Climb"}
+                    <MultiOptions title="Climb Level" name="endgame-climb_level" classes={`${failedEndgameClimb ? 'hidden' : ''}`} options={[
+                        {value: 1, label:"Level 1"},
+                        {value: 2, label:"Level 2"},
+                        {value: 3, label:"Level 3"},
+                        {value: 0, label:"Did Not Attempt Climb"},
                     ]} vertical={true} />
                 </div>
 

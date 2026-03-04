@@ -66,8 +66,6 @@ export default function Page() {
             })
             .then(response => response.json())
             .then(data => {
-                console.log(data.alliances[alliance].team_keys);
-                console.log(seatNum);
                 const teamNumber = data.alliances[alliance].team_keys[seatNum].replace('frc', '');
 
                 window.location.assign(`/matchScouting?team=${teamNumber}&match=${formData.get('matchNum')}&name=${encodeURIComponent(formData.get('scouterName')!.toString())}`);

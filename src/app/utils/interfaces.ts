@@ -44,6 +44,7 @@ export interface ScoutingData {
   'teleop-snowblow_neutral1': boolean;
   'teleop-snowblow_neutral2': boolean;
   'teleop-snowblow_alliance': boolean;
+  'teleop-snowblow_none': boolean;
   'teleop-out_of_bounds': boolean;
   'teleop-move_shoot': boolean;
   'teleop-bump': boolean;

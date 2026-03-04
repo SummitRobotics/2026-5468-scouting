@@ -29,12 +29,12 @@ export function MultiOptions({title, options, classes, id, name, vertical, multi
 
             <div className={`grid ${vertical ? 'grid-cols-1' : 'grid-cols-3 place-items-center'} gap-4 pt-4 ${classes}`}>
                 { options.map((option, index) => {
-                    const optionID = `${name}_${option.value}`;
+                    const optionID = `${name || option.name}_${option.value}`;
                     const selected = !!option.selected;
 
                     return (
                         <div key={index} className="flex place-items-center">
-                            <input type={ inputType } defaultChecked={selected} className="mr-4 shrink-0" name={name} id={optionID} value={option.value} /> <label htmlFor={optionID}>{option.label}</label>
+                            <input type={ inputType } defaultChecked={selected} className="mr-4 shrink-0" name={name || option.name} id={optionID} value={option.value} /> <label htmlFor={optionID}>{option.label}</label>
                         </div>
                     )}
                 ) }
