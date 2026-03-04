@@ -291,9 +291,9 @@ export default function Page({
                     ]} vertical={true} />
 
                     <MultiOptions title="Robot Speed" name="teleop-speed" options={[
-                        {value: "slow", label:"Slow"},
-                        {value: "medium", label:"Medium"},
-                        {value: "fast", label:"Fast"}
+                        {value: "1", label:"Slow"},
+                        {value: "3", label:"Medium"},
+                        {value: "5", label:"Fast"}
                     ]} />
 
                     <MultiOptions title="Robot Assessment" options={[

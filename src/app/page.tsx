@@ -53,7 +53,7 @@ export default function Page() {
 
         const seatCollection = (typeof formData.get('scoutingSeat') == 'string') ? formData.get('scoutingSeat')!.toString().split(':') : [];
         const alliance = seatCollection[0];
-        const seatNum = seatCollection[1];
+        const seatNum = Number(seatCollection[1]) - 1; // Arrays are zero-based
 
         if(formData.get('COMP_ID') === 'practice') {
             const team = practiceTeams[`${alliance}${seatNum}`];
@@ -66,6 +66,8 @@ export default function Page() {
             })
             .then(response => response.json())
             .then(data => {
+                console.log(data.alliances[alliance].team_keys);
+                console.log(seatNum);
                 const teamNumber = data.alliances[alliance].team_keys[seatNum].replace('frc', '');
 
                 window.location.assign(`/matchScouting?team=${teamNumber}&match=${formData.get('matchNum')}&name=${encodeURIComponent(formData.get('scouterName')!.toString())}`);
