@@ -30,36 +30,28 @@ export default function initialize() {
     const db = getFirestore(app);
     const matchNumSelect = document.getElementById('matchNum');
 
-    if(COMP_ID === 'practice') {
-        practiceMatches.forEach(match => {
-            const option = document.createElement('option');
-            option.value = match.match_number.toString();
-            option.textContent = match.match_number.toString();
-            matchNumSelect!.appendChild(option);
-        })
-    }else{
-        fetch(`https://www.thebluealliance.com/api/v3/event/${COMP_ID}/matches`, {
-            headers: {
-                'X-TBA-Auth-Key': apiKey
-            }
-        })
-        .then(response => response.json())
-        .then(matches => {
-            console.log(matches);
-            (matches as Array<Record<string, any>>)
-                .filter(match => match.comp_level === 'qm') // Only add qualification matches
-                .sort((a, b) => a.match_number - b.match_number) // Sort matches by match number
-                .forEach(match => {
-                    const option = document.createElement('option');
-                    option.value = match.match_number;
-                    option.textContent = match.match_number;
-                    matchNumSelect!.appendChild(option);
-                });
-        })
-        .catch(error => {
-            console.error('Error fetching matches:', error);
-        });
-    }
+
+    fetch(`https://www.thebluealliance.com/api/v3/event/${COMP_ID}/matches`, {
+        headers: {
+            'X-TBA-Auth-Key': apiKey
+        }
+    })
+    .then(response => response.json())
+    .then(matches => {
+        console.log(matches);
+        (matches as Array<Record<string, any>>)
+            .filter(match => match.comp_level === 'qm') // Only add qualification matches
+            .sort((a, b) => a.match_number - b.match_number) // Sort matches by match number
+            .forEach(match => {
+                const option = document.createElement('option');
+                option.value = match.match_number;
+                option.textContent = match.match_number;
+                matchNumSelect!.appendChild(option);
+            });
+    })
+    .catch(error => {
+        console.error('Error fetching matches:', error);
+    });
 
     const leaderboardRef = collection(db, "leaderboard_submissions");
     const q = query(leaderboardRef, orderBy("submissionCount", "desc"), limit(3));

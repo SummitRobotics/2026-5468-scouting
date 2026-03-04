@@ -137,7 +137,7 @@ export default function Page({
     const [failedEndgameClimb, setFailedEndgameClimb] = useState(false);
     const [noAutoMove, setNoAutoMove] = useState(false);
 
-    const team = (COMP_ID === 'practice') ? params.team : Number(params.team);
+    const team = params.team;
     const match = params.match;
     const seat = params.seat;
     const fieldImg = (seat?.includes('blue')) ? '/images/field_top_blue_home.png' : '/images/field_top_red_home.png';

@@ -55,25 +55,20 @@ export default function Page() {
         const alliance = seatCollection[0];
         const seatNum = Number(seatCollection[1]) - 1; // Arrays are zero-based
 
-        if(formData.get('COMP_ID') === 'practice') {
-            const team = practiceTeams[`${alliance}${seatNum}`];
-            window.location.assign(`/matchScouting?team=${team}&match=${formData.get('matchNum')}&name=${encodeURIComponent(formData.get('scouterName')!.toString())}`);
-        } else {
-            fetch(`https://www.thebluealliance.com/api/v3/match/${formData.get('COMP_ID')}_qm${formData.get('matchNum')}`, {
-                headers: {
-                    'X-TBA-Auth-Key': apiKey
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                const teamNumber = data.alliances[alliance].team_keys[seatNum].replace('frc', '');
+        fetch(`https://www.thebluealliance.com/api/v3/match/${formData.get('COMP_ID')}_qm${formData.get('matchNum')}`, {
+            headers: {
+                'X-TBA-Auth-Key': apiKey
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const teamNumber = data.alliances[alliance].team_keys[seatNum].replace('frc', '');
 
-                window.location.assign(`/matchScouting?team=${teamNumber}&match=${formData.get('matchNum')}&name=${encodeURIComponent(formData.get('scouterName')!.toString())}`);
-            })
-            .catch(error => {
-                console.error('Error fetching match data:', error);
-            });
-        }
+            window.location.assign(`/matchScouting?team=${teamNumber}&match=${formData.get('matchNum')}&name=${encodeURIComponent(formData.get('scouterName')!.toString())}`);
+        })
+        .catch(error => {
+            console.error('Error fetching match data:', error);
+        });
     }
 
     return (

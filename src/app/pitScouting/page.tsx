@@ -19,37 +19,7 @@ export async function fetchEventData() {
 }
 
 export default async function Page() {
-  let eventTeams;
-
-  if(COMP_ID === 'practice') {
-    eventTeams = [
-      {
-        team_number: '5468-a',
-        nickname: '5468-a'
-      },
-      {
-        team_number: '5468-b',
-        nickname: '5468-b'
-      },
-      {
-        team_number: '5468-c',
-        nickname: '5468-c'
-      },
-      {
-        team_number: '5468-d',
-        nickname: '5468-d'
-      },
-      {
-        team_number: '5468-e',
-        nickname: '5468-e'
-      },
-      {
-        team_number: '5468-f',
-        nickname: '5468-f'
-      },
-    ]
-  } else {
-    eventTeams = await fetchEventData()
+  const eventTeams = await fetchEventData()
     .then(response => {
       console.log(response)
       return response.sort((a: Team, b: Team) => a.team_number - b.team_number).map((team: Team) => {
@@ -59,7 +29,6 @@ export default async function Page() {
         }
       });
     });
-  }
 
   return (
     <div className="p-4 grid grid-row place-content-center">
