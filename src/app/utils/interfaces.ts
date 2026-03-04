@@ -93,6 +93,8 @@ export interface TeamPitData {
   hopper_capacity?: number;
   quality?: string;
   electrical_quality?: string;
+  repairability?: string;
+  intake_quality?: string;
   electrical_ports_taped?: boolean;
   electrical_battery_protected?: boolean;
   eletrical_loose_wiring?: boolean;
