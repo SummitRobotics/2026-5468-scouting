@@ -13,7 +13,11 @@ type PitDataState = {
 };
 
 async function postTeamData(teamID: number | string, _prevState: PitDataState, formData: FormData): Promise<PitDataState> {
-  const submissionData = coerceDataTypes(Object.fromEntries(formData.entries()));
+  const submissionData = coerceDataTypes({
+    ...Object.fromEntries(formData.entries()),
+    teamID
+  });
+  console.log(submissionData);
   const newState = await setDoc(doc(db, "teams", teamID.toString()), submissionData, { merge: true })
   .then((response) => {
     return {

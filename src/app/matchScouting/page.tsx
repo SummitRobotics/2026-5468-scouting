@@ -172,9 +172,9 @@ export default function Page({
 
         try {
             // Submit match data
-            await setDoc(doc(db, "matches", `${COMP_ID}-${match}-${team}`), {
+            await setDoc(doc(db, "matches", `${COMP_ID}-${match}-${Number(team)}`), {
                 ...postData,
-                teamID: team,
+                teamID: Number(team),
                 scout_name: scoutName,
             });
 
