@@ -54,7 +54,7 @@ export default function initialize() {
     });
 
     const leaderboardRef = collection(db, "leaderboard_submissions");
-    const q = query(leaderboardRef, orderBy("submissionCount", "desc"));
+    const q = query(leaderboardRef, orderBy("submissionCount", "desc"), limit(5));
     const leaderboardList = document.getElementById("leaderboardList");
     onSnapshot(q,(querySnapshot) => {
         leaderboardList!.innerHTML = '';
