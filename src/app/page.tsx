@@ -64,7 +64,7 @@ export default function Page() {
         .then(data => {
             const teamNumber = data.alliances[alliance].team_keys[seatNum].replace('frc', '');
 
-            window.location.assign(`/matchScouting?team=${teamNumber}&match=${formData.get('matchNum')}&name=${encodeURIComponent(formData.get('scouterName')!.toString())}`);
+            window.location.assign(`/matchScouting?team=${teamNumber}&match=${formData.get('matchNum')}&name=${encodeURIComponent(formData.get('scouterName')!.toString())}&seat=${formData.get("scoutingSeat")}`);
         })
         .catch(error => {
             console.error('Error fetching match data:', error);
