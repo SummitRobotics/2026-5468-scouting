@@ -249,6 +249,7 @@ export default function Page({
                     <BoolOptions name="teleop-move_shoot" title="Shot While Moving"  />
                     <BoolOptions name="teleop-bump" title="Navigated Bump"  />
                     <BoolOptions name="teleop-trench" title="Navigated Trench"  />
+                    <BoolOptions name="teleop-defense" title="Played Defense"  />
                 </div>
 
                 <div className={`my-4 border rounded-2xl border-red-600 p-4 bg-red-950 endgame ${onField ? '' : 'hidden'}`}>
