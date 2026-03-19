@@ -1,31 +1,19 @@
-import { COMP_ID, API_KEY } from "../components/constants";
 import TeamChooserForm from "./teamChooserForm";
+import { getCachedTeams } from "@/app/scripts/main"
 
 type Team = {
   team_number: number,
-  nickname: string
+  team_name: string
 };
 
-export async function fetchEventData() {
-    return await fetch(`https://www.thebluealliance.com/api/v3/event/${COMP_ID}/teams/simple`, {
-        headers: {
-            'X-TBA-Auth-Key': API_KEY
-        }
-    })
-    .then(response => response.json())
-    .catch(error => {
-        console.error('Error fetching teams:', error);
-    });
-}
 
 export default async function Page() {
-  const eventTeams = await fetchEventData()
+  const eventTeams = await getCachedTeams()
     .then(response => {
-      console.log(response)
       return response.sort((a: Team, b: Team) => a.team_number - b.team_number).map((team: Team) => {
         return {
           team_number: team.team_number,
-          nickname: team.nickname
+          nickname: team.team_name
         }
       });
     });

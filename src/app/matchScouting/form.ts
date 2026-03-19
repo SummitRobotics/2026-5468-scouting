@@ -1,5 +1,5 @@
 import firebase from "firebase/compat/app";
-import { addDoc, doc, getFirestore, setDoc, collection } from "firebase/firestore"
+import { doc, getFirestore, setDoc } from "firebase/firestore"
 
 export default function initialize() {
     const urlParams = new URLSearchParams(window.location.search);

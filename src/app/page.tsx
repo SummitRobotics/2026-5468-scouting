@@ -1,24 +1,24 @@
 "use client";
 import {useEffect, useState} from "react";
-import { COMP_ID } from "./components/constants";
-import initialize from "./scripts/main"
+import { COMP_ID } from "@/app/components/constants";
+import { initialize, getCachedEventMatches } from "@/app/scripts/main"
+import { Match } from "@/app/utils/interfaces";
 
-const apiKey = 'zu21V7xO4Yu9ny1QVq7HsrYIAEG0p015yi747MxvjUHw9Hk7de60VPxIRBA0gYRN';
-
-interface practiceTeam {
-    [key: string]: string;
-};
-const practiceTeams = {
-    red1: '5468-a',
-    red2: '5468-b',
-    red3: '5468-c',
-    blue1: '5468-d',
-    blue2: '5468-e',
-    blue3: '5468-f',
-} as practiceTeam;
 
 export default function Page() {
+    const [matchList, setMatchList] = useState<Match[]>([]);
+    const [selectedMatchNumber, setSelectedMatchNumber] = useState<number>(1);
+
     useEffect(() => {
+        async function fetchMatches() {
+            const data = await getCachedEventMatches();
+
+            setMatchList(data);
+            if (data.length > 0) {
+                setSelectedMatchNumber(data[0].match_number);
+            }
+        }
+        fetchMatches();
         initialize();
     }, []);
     const [error, setError] = useState<string | null>(null);
@@ -52,23 +52,12 @@ export default function Page() {
         }
 
         const seatCollection = (typeof formData.get('scoutingSeat') == 'string') ? formData.get('scoutingSeat')!.toString().split(':') : [];
-        const alliance = seatCollection[0];
+        const alliance:string = seatCollection[0];
         const seatNum = Number(seatCollection[1]) - 1; // Arrays are zero-based
+        const selectedMatch = matchList.find(match => match.match_number === selectedMatchNumber);
+        const teamNumber = selectedMatch!.alliances[alliance].team_keys[seatNum].replace('frc', '');
 
-        fetch(`https://www.thebluealliance.com/api/v3/match/${formData.get('COMP_ID')}_qm${formData.get('matchNum')}`, {
-            headers: {
-                'X-TBA-Auth-Key': apiKey
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            const teamNumber = data.alliances[alliance].team_keys[seatNum].replace('frc', '');
-
-            window.location.assign(`/matchScouting?team=${teamNumber}&match=${formData.get('matchNum')}&name=${encodeURIComponent(formData.get('scouterName')!.toString())}&seat=${formData.get("scoutingSeat")}`);
-        })
-        .catch(error => {
-            console.error('Error fetching match data:', error);
-        });
+        window.location.assign(`/matchScouting?team=${teamNumber}&match=${formData.get('matchNum')}&name=${encodeURIComponent(formData.get('scouterName')!.toString())}&seat=${formData.get("scoutingSeat")}`);
     }
 
     return (
@@ -82,7 +71,13 @@ export default function Page() {
                 </div>
                 <div className="flex place-items-center">
                     <label htmlFor="matchNum" className="text-lg font-bold">Match #:</label>
-                    <select id="matchNum" name="matchNum" required></select>
+                    <select id="matchNum" name="matchNum" required>
+                        {matchList.map((match, idx) => (
+                            <option key={`${match.match_number}-${idx}`} value={match.match_number}>
+                                {match.match_number}
+                            </option>
+                        ))}
+                    </select>
                 </div>
                 <div className="flex place-items-center">
                     <label htmlFor="scoutingSeat" className="text-lg font-bold">Scouting Seat:</label>

@@ -1,22 +1,63 @@
 import firebase from "firebase/compat/app";
-import { collection, getFirestore, query, orderBy, limit, onSnapshot } from "firebase/firestore"
+import { db } from "@/app/components/firebase";
+import { doc, getDoc, collection, getFirestore, query, orderBy, limit, onSnapshot } from "firebase/firestore"
+import { Match } from "@/app/utils/interfaces";
 import { COMP_ID } from "../components/constants";
-const apiKey = 'zu21V7xO4Yu9ny1QVq7HsrYIAEG0p015yi747MxvjUHw9Hk7de60VPxIRBA0gYRN';
-const practiceMatches = [
-    {match_number: 1},
-    {match_number: 2},
-    {match_number: 3},
-    {match_number: 4},
-    {match_number: 5},
-    {match_number: 6},
-    {match_number: 7},
-    {match_number: 8},
-    {match_number: 9},
-];
 
-export default function initialize() {
-    console.log("h");
 
+export async function getCachedEventMatches(): Promise<Match[]> {
+  try {
+    const eventsRef = doc(db, 'events', COMP_ID);
+    const eventSnapshot = await getDoc(eventsRef);
+
+    if (!eventSnapshot.exists()) {
+      return [];
+    }
+
+    const eventData = eventSnapshot.data();
+    const matchesRaw = eventData.matches;
+
+    return matchesRaw.filter((match: Match) => match.comp_level === 'qm') // Only add qualification matches
+        .sort((a: Match, b: Match) => a.match_number - b.match_number); // Sort matches by match number
+  } catch(error) {
+    console.error("Error fetching match data:", error);
+    return [];
+  }
+}
+
+interface Team {
+    team_number: number;
+    team_name: string;
+}
+
+export async function getCachedTeams(): Promise<Team[]> {
+  try {
+    const eventsRef = doc(db, 'events', COMP_ID);
+    const eventSnapshot = await getDoc(eventsRef);
+
+    if (!eventSnapshot.exists()) {
+      return [];
+    }
+
+    const eventData = eventSnapshot.data();
+    const teams = eventData.statbotics;
+
+    return Object.keys(teams).reduce((acc: Team[], team) => {
+        acc.push({
+            team_number: Number(team),
+            team_name: teams[team].team_name
+        });
+
+        return acc;
+    }, []);
+  } catch(error) {
+    console.error("Error fetching match data:", error);
+    return [];
+  }
+}
+
+
+export async function initialize() {
     const firebaseConfig = {
         apiKey: "AIzaSyBBdLNFW4cBj4yrt6CXLiAk4pJQ7hw218s",
         authDomain: "database-d991e.firebaseapp.com",
@@ -28,30 +69,6 @@ export default function initialize() {
 
     const app = firebase.initializeApp(firebaseConfig);
     const db = getFirestore(app);
-    const matchNumSelect = document.getElementById('matchNum');
-
-
-    fetch(`https://www.thebluealliance.com/api/v3/event/${COMP_ID}/matches`, {
-        headers: {
-            'X-TBA-Auth-Key': apiKey
-        }
-    })
-    .then(response => response.json())
-    .then(matches => {
-        console.log(matches);
-        (matches as Array<Record<string, any>>)
-            .filter(match => match.comp_level === 'qm') // Only add qualification matches
-            .sort((a, b) => a.match_number - b.match_number) // Sort matches by match number
-            .forEach(match => {
-                const option = document.createElement('option');
-                option.value = match.match_number;
-                option.textContent = match.match_number;
-                matchNumSelect!.appendChild(option);
-            });
-    })
-    .catch(error => {
-        console.error('Error fetching matches:', error);
-    });
 
     const leaderboardRef = collection(db, "leaderboard_submissions");
     const q = query(leaderboardRef, orderBy("submissionCount", "desc"), limit(5));
