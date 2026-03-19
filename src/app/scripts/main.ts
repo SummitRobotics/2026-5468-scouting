@@ -59,7 +59,7 @@ export async function getCachedTeams(): Promise<Team[]> {
 
 export async function initialize() {
     const firebaseConfig = {
-        apiKey: "AIzaSyBBdLNFW4cBj4yrt6CXLiAk4pJQ7hw218s",
+        apiKey: process.env.FIREBASE_KEY,
         authDomain: "database-d991e.firebaseapp.com",
         projectId: "database-d991e",
         storageBucket: "database-d991e.firebasestorage.app",
