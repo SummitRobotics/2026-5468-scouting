@@ -40,7 +40,7 @@ export async function getCachedTeams(): Promise<Team[]> {
     }
 
     const eventData = eventSnapshot.data();
-    console.log(eventData.teams.map(team => `${team.team_number} - ${team.team_name}`))
+    console.log(eventData.teams.map((team: Team) => `${team.team_number} - ${team.team_name}`))
     return eventData.teams;
   } catch(error) {
     console.error("Error fetching match data:", error);
