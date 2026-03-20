@@ -25,7 +25,7 @@ export default function RootLayout({
       <body
         className={`antialiased`}
       >
-              <BugSnagProvider>\n        <Header />
+              <BugSnagProvider><Header />
 
 
         <Suspense fallback={<div className="mt-6 text-chaos flex place-content-center text-3xl font-bold">Loading...</div>}>
