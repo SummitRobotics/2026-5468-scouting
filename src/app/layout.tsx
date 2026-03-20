@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { Suspense } from 'react'
 
 import Header from "./components/header";
+import BugSnagProvider from "./components/BugSnagProvider";
 import "./globals.css";
 
 import "./styles/style.css";
-
 
 export const metadata: Metadata = {
   title: "Scouting Selection",
@@ -25,12 +25,13 @@ export default function RootLayout({
       <body
         className={`antialiased`}
       >
-        <Header />
+              <BugSnagProvider>\n        <Header />
 
 
         <Suspense fallback={<div className="mt-6 text-chaos flex place-content-center text-3xl font-bold">Loading...</div>}>
           {children}
         </Suspense>
+      </BugSnagProvider>
       </body>
     </html>
   );
