@@ -6,12 +6,12 @@ import BugsnagPluginReact from '@bugsnag/plugin-react';
 import BugsnagPerformance from '@bugsnag/browser-performance';
 
 Bugsnag.start({
-  apiKey: process.env.BUGSNAG_KEY,
+  apiKey: process.env.BUGSNAG_KEY || '', 
   plugins: [new BugsnagPluginReact()]
 });
 
 BugsnagPerformance.start({
-  apiKey: process.env.BUGSNAG_KEY
+  apiKey: process.env.BUGSNAG_KEY || ''
 });
 
 interface BugSnagProviderProps {
