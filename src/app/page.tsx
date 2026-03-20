@@ -73,7 +73,7 @@ export default function Page() {
                 </div>
                 <div className="flex place-items-center">
                     <label htmlFor="matchNum" className="text-lg font-bold">Match #:</label>
-                    <select id="matchNum" name="matchNum" required>
+                    <select id="matchNum" name="matchNum" required onChange={(e) => {setSelectedMatchNumber(Number(e.target.value));}}>
                         {matchList.map((match, idx) => (
                             <option key={`${match.match_number}-${idx}`} value={match.match_number}>
                                 {match.match_number}
