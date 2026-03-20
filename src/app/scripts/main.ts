@@ -40,16 +40,7 @@ export async function getCachedTeams(): Promise<Team[]> {
     }
 
     const eventData = eventSnapshot.data();
-    const teams = eventData.statbotics;
-
-    return Object.keys(teams).reduce((acc: Team[], team) => {
-        acc.push({
-            team_number: Number(team),
-            team_name: teams[team].team_name
-        });
-
-        return acc;
-    }, []);
+    return eventData.teams;
   } catch(error) {
     console.error("Error fetching match data:", error);
     return [];
