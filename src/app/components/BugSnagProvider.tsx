@@ -5,14 +5,13 @@ import Bugsnag from '@bugsnag/js';
 import BugsnagPluginReact from '@bugsnag/plugin-react';
 import BugsnagPerformance from '@bugsnag/browser-performance';
 
-// Initialize BugSnag at the top of the bundle
 Bugsnag.start({
-  apiKey: process.env.NEXT_PUBLIC_BUGSNAG_KEY || '',
+  apiKey: process.env.BUGSNAG_KEY,
   plugins: [new BugsnagPluginReact()]
 });
 
 BugsnagPerformance.start({
-  apiKey: process.env.NEXT_PUBLIC_BUGSNAG_KEY || ''
+  apiKey: process.env.BUGSNAG_KEY
 });
 
 interface BugSnagProviderProps {
