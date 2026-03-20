@@ -9,6 +9,9 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@bugsnag/browser-performance": "^3.4.1",
+    "@bugsnag/js": "^8.8.1",
+    "@bugsnag/plugin-react": "^8.8.0",
     "@netlify/plugin-nextjs": "^5.15.7",
     "firebase": "^12.7.0",
     "netlify": "^24.3.0",
