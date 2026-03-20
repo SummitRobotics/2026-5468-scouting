@@ -17,7 +17,7 @@ async function postTeamData(teamID: number | string, _prevState: PitDataState, f
     ...Object.fromEntries(formData.entries()),
     teamID
   });
-  console.log(submissionData);
+
   const newState = await setDoc(doc(db, "teams", teamID.toString()), submissionData, { merge: true })
   .then((response) => {
     return {
@@ -63,19 +63,19 @@ export default function PitScoutingForm({pitData}: {pitData: TeamPitData }) {
           <div className="grid grid-cols-2 gap-4 mb-4">
             <div>
               <label className="block text-sm font-medium mb-2">Width (inches)</label>
-              <input type="number" defaultValue={state.data?.width || undefined} name="width" className="px-3 py-2 bg-gray-800 border border-gray-600 rounded" />
+              <input type="number" step="any" defaultValue={state.data?.width || undefined} name="width" className="w-9/10 px-3 py-2 bg-gray-800 border border-gray-600 rounded" />
             </div>
             <div>
               <label className="block text-sm font-medium mb-2">Length (inches)</label>
-              <input type="number" defaultValue={state.data?.length || undefined} name="length" className="px-3 py-2 bg-gray-800 border border-gray-600 rounded" />
+              <input type="number" step="any" defaultValue={state.data?.length || undefined} name="length" className="w-9/10 px-3 py-2 bg-gray-800 border border-gray-600 rounded" />
             </div>
             <div>
               <label className="block text-sm font-medium mb-2">Height (inches)</label>
-              <input type="number" defaultValue={state.data?.height || undefined} name="height" className="px-3 py-2 bg-gray-800 border border-gray-600 rounded" />
+              <input type="number" step="any" defaultValue={state.data?.height || undefined} name="height" className="w-9/10 px-3 py-2 bg-gray-800 border border-gray-600 rounded" />
             </div>
             <div>
               <label className="block text-sm font-medium mb-2">Weight (lbs)</label>
-              <input type="number" defaultValue={state.data?.weight || undefined} name="weight" className="px-3 py-2 bg-gray-800 border border-gray-600 rounded" />
+              <input type="number" step="any" defaultValue={state.data?.weight || undefined} name="weight" className="w-9/10 px-3 py-2 bg-gray-800 border border-gray-600 rounded" />
             </div>
           </div>
           <MultiOptions title="Drive Type" name="drive_type" options={[
@@ -95,7 +95,7 @@ export default function PitScoutingForm({pitData}: {pitData: TeamPitData }) {
 
           <div className="mt-4">
             <label className="block text-sm font-medium mb-2">Hopper Capacity</label>
-              <input type="number" defaultValue={state.data?.hopper_capacity || undefined} name="hopper_capacity" className="px-3 py-2 bg-gray-800 border border-gray-600 rounded" />
+              <input type="number" step="any" defaultValue={state.data?.hopper_capacity || undefined} name="hopper_capacity" className="w-9/10 px-3 py-2 bg-gray-800 border border-gray-600 rounded" />
           </div>
         </div>
 
@@ -110,7 +110,7 @@ export default function PitScoutingForm({pitData}: {pitData: TeamPitData }) {
 
           <div className="mt-4">
             <label className="block text-sm font-medium mb-2">Number of Shooters</label>
-            <input type="number" name="shooter_count" defaultValue={state.data?.shooter_count || undefined} className="px-3 py-2 bg-green-900 border border-green-600 rounded" />
+            <input type="number" step="any" name="shooter_count" defaultValue={state.data?.shooter_count || undefined} className="w-9/10 px-3 py-2 bg-green-900 border border-green-600 rounded" />
           </div>
 
           <BoolOptions title="Auto Aim Capable" name="auto_aim" defaultValue={state.data?.auto_aim || false} />
