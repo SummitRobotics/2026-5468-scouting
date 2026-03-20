@@ -3,6 +3,9 @@ import {useEffect, useState} from "react";
 import { COMP_ID } from "@/app/components/constants";
 import { initialize, getCachedEventMatches } from "@/app/scripts/main"
 import { Match } from "@/app/utils/interfaces";
+import Bugsnag from '@bugsnag/js'
+import BugsnagPluginReact from '@bugsnag/plugin-react'
+import BugsnagPerformance from '@bugsnag/browser-performance'
 
 
 export default function Page() {
@@ -23,6 +26,7 @@ export default function Page() {
     }, []);
     const [error, setError] = useState<string | null>(null);
 
+    Bugsnag.notify(new Error('Test error'))
 
     async function handleSubmit(formData: FormData) {
         let foundError: string | null = null;
