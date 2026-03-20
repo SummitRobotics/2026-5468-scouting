@@ -26,8 +26,6 @@ export default function Page() {
     }, []);
     const [error, setError] = useState<string | null>(null);
 
-    Bugsnag.notify(new Error('Test error'))
-
     async function handleSubmit(formData: FormData) {
         let foundError: string | null = null;
         if(!formData) {
