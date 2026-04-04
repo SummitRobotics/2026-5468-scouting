@@ -281,6 +281,7 @@ export default function Page({
 
                 <div className={`${onField ? '' : 'hidden'}`}>
                     <MultiOptions title="Shooting Speed" name="shooting_speed" options={[
+                        {value: 0, label: "Did Not Shoot"},
                         {value: 1, label:"Slow"},
                         {value: 3, label:"Medium"},
                         {value: 5, label:"Fast"},
