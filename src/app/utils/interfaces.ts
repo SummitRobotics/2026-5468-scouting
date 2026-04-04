@@ -85,8 +85,6 @@ export interface TeamPitData {
   auto_aim?: boolean;
   auto_score_count?: number;
   move_shoot?: boolean;
-  outpost_feed?: boolean;
-  outpost_receive?: boolean;
   climb_endgame?: boolean;
   climb_auto?: boolean;
   drive_type?: string;

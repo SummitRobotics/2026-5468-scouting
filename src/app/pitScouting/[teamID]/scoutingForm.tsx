@@ -123,8 +123,6 @@ export default function PitScoutingForm({pitData}: {pitData: TeamPitData }) {
         <div className="my-4 border rounded-2xl border-yellow-600 p-4 bg-yellow-950">
           <h2 className="text-center text-2xl pb-4">On-Field Capabilities</h2>
 
-          <BoolOptions title="Can Receive from Outpost" name="outpost_receive" defaultValue={state.data?.outpost_receive || false} />
-          <BoolOptions title="Can Feed to Outpost" name="outpost_feed" defaultValue={state.data?.outpost_feed || false} />
           <BoolOptions title="Can Navigate Bump" name="nav_bump" defaultValue={state.data?.nav_bump || false} />
           <BoolOptions title="Can Navigate Trench" name="nav_trench" defaultValue={state.data?.nav_trench || false} />
 
