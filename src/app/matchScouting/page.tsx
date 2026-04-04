@@ -151,8 +151,9 @@ export default function Page({
 
         if (isSubmitting) { return; }
 
-        if (formData.get('auto-climb_failed') === 'true') {
+        if (formData.get('auto-climb') === 'failed') {
             formData.set('auto-climb', 'true');
+            formData.set('auto-climb_failed', 'true');
         }
 
         const dataObject = nestByPrefix(coerceFormValues({
@@ -223,9 +224,12 @@ export default function Page({
                         {value: "true", name: "auto-fuel_none", label:"Did Not Pick Up Fuel"}
                     ]} vertical={true} multiSelect={true} />
                     {/*<FuelCounter name="auto-fuel_score" />*/}
-                    <BoolOptions title="Failed Auto Climb" name="auto-climb_failed" classes={`${noAutoMove ? 'hidden' : ''}`} YFunc={() => setFailedAutoClimb(true)} NFunc={() => setFailedAutoClimb(false)} />
-                    <BoolOptions title="Climbed" name="auto-climb" classes={`${failedAutoClimb || noAutoMove ? 'hidden' : ''}`} YFunc={() => setAutoClimb(true)} NFunc={() => setAutoClimb(false)} />
-                    <MultiOptions title="Climb (or Attempted Climb) Location" name="auto-climb_location" classes={`${((autoClimb && !noAutoMove) || (!autoClimb && noAutoMove)) ? '' : 'hidden'}`} options={[
+                    <MultiOptions title="Climbed" name="auto-climb" options={[
+                        {value: "true", label:"Yes"},
+                        {value: "false", label:"No"},
+                        {value: "failed", label:"Failed"}
+                    ]} />
+                    <MultiOptions title="Climb Location (leave blank if no climb attempted)" name="auto-climb_location" classes={`${((autoClimb && !noAutoMove) || (!autoClimb && noAutoMove)) ? '' : 'hidden'}`} options={[
                         {value: "left", label:"Left"},
                         {value: "middle", label:"Middle"},
                         {value: "right", label:"Right"}
@@ -255,8 +259,12 @@ export default function Page({
                 <div className={`my-4 border rounded-2xl border-red-600 p-4 bg-red-950 endgame ${onField ? '' : 'hidden'}`}>
                     <h2 id="egTitle" className="text-center text-2xl pb-4">End Game</h2>
                     {/*<FuelCounter name="endgame-fuel_score" />*/}
-                    <BoolOptions title="Failed Endgame Climb" name="endgame-climb_failed" YFunc={() => setFailedEndgameClimb(true)} NFunc={() => setFailedEndgameClimb(false)} />
-                    <MultiOptions title="Climb Location" name="endgame-climb_location" options={[
+                    <MultiOptions title="Climbed" name="endgame-climb" options={[
+                        {value: "true", label:"Yes"},
+                        {value: "false", label:"No"},
+                        {value: "failed", label:"Failed"}
+                    ]} />
+                    <MultiOptions title="Climb Location (Leave blank if no climb)" name="endgame-climb_location" options={[
                         {value: "left", label:"Left"},
                         {value: "middle", label:"Middle"},
                         {value: "right", label:"Right"}
@@ -265,7 +273,7 @@ export default function Page({
                         {value: 1, label:"Level 1"},
                         {value: 2, label:"Level 2"},
                         {value: 3, label:"Level 3"},
-                        {value: 0, label:"Did Not Attempt Climb"},
+                        {value: 0, label:"Did not climb / Failed to climb"},
                     ]} vertical={true} />
                 </div>
 

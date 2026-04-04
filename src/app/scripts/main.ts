@@ -2,11 +2,15 @@ import firebase from "firebase/compat/app";
 import { db } from "@/app/components/firebase";
 import { doc, getDoc, collection, getFirestore, query, orderBy, limit, onSnapshot } from "firebase/firestore"
 import { Match } from "@/app/utils/interfaces";
-import { COMP_ID } from "../components/constants";
+import { COMP_ID, TEST_EVENT } from "../components/constants";
 
 
 export async function getCachedEventMatches(): Promise<Match[]> {
   try {
+    if (COMP_ID === 'TEST_EVENT') {
+      return TEST_EVENT.matches;
+    }
+
     const eventsRef = doc(db, 'events', COMP_ID);
     const eventSnapshot = await getDoc(eventsRef);
 
