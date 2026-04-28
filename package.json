@@ -14,7 +14,7 @@
     "@bugsnag/plugin-react": "^8.8.0",
     "@netlify/plugin-nextjs": "^5.15.7",
     "firebase": "^12.7.0",
-    "netlify": "^24.11.3",
+    "netlify": "^25.0.1",
     "next": "^16.2.3",
     "react": "19.2.3",
     "react-dom": "19.2.3"
