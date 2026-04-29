@@ -1,4 +1,4 @@
-export const COMP_ID = '2026pncmp';
+export const COMP_ID = '2026arc';
 export const TEST_EVENT = {
   matches: [
     {
